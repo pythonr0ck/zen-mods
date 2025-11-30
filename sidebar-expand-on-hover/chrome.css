@@ -18,17 +18,17 @@
     }
 
     /* Expanded Sidebar BG -
-  The --theme-sidebar_expand_on_hover-background_gradient variable is going to be used to set up an if()-like statement below. (The checking happens here (instead of where it is used later on) because CSS doesnt allow for checking elements outside of parent.) */
+  The --theme-sidebar_expand_on_hover-if_background_gradient variable is going to be used to set up an if()-like statement below. (The checking happens here (instead of where it is used later on) because CSS doesnt allow for checking elements outside of parent.) */
     #main-window[style*="--zen-main-browser-background: linear-gradient"] {
         /*if the browser background is a gradient...*/
-        --theme-sidebar_expand_on_hover-background_gradient: var(
+        --theme-sidebar_expand_on_hover-if_background_gradient: var(
             --zen-main-browser-background
         ); /*store data to remember that it is a gradient.*/
     }
     /*Later on in #navigator-toolbox &::before...
 
   Set gradient to background if true, otherwise set it to a solid color:
-  background-image: var(--theme-sidebar_expand_on_hover-background_gradient, linear-gradient(var(--zen-primary-color)));
+  background-image: var(--theme-sidebar_expand_on_hover-if_background_gradient, linear-gradient(var(--zen-primary-color)));
      Expanded Sidebar BG */
 
     :root:not(
@@ -197,7 +197,7 @@
                     /*background-color: var(--zen-primary-color);*/ /*Solid color backround*/ /*Fallback when --zen-main-browser-background is transparent but it does NOT have an empty value*/
 
                     background-image: var(
-                        --theme-sidebar_expand_on_hover-background_gradient,
+                        --theme-sidebar_expand_on_hover-if_background_gradient,
                         linear-gradient(var(--zen-primary-color))
                     ); /*var(--zen-main-browser-background) is transparent, so it must be combined with an opaque background color to make the sidebar background opaque*/
 
@@ -399,7 +399,7 @@
                 }
             }
 
-            /* Expanded bar */
+            /* Expanded sidebar */
             #navigator-toolbox:is(
           [zen-has-hover],
           [movingtab],
@@ -427,7 +427,7 @@
                 }
             }
 
-            /* Collapsed bar */
+            /* Collapsed sidebar */
             #navigator-toolbox:not(
           [zen-has-hover],
           [movingtab],
@@ -530,7 +530,7 @@ Sidebar Expand on Hover Experimental Features
 =======================================
 */
 
-    /* When toolbar unexpanded... */
+    /* Collapsed sidebar */
     #navigator-toolbox:not(
         [zen-has-hover],
         [movingtab],
@@ -552,7 +552,7 @@ Sidebar Expand on Hover Experimental Features
             > #zen-create-new-button {
                 display: none !important;
             }
-            /* the unexpanded is only big enough to show the current workspace, which is redundant since the top al */
+            /* the collapsed sidebar view is only big enough to show the current workspace, which is redundant since the top al */
             > #zen-workspaces-button {
                 display: none !important;
             }
@@ -633,11 +633,11 @@ Sidebar Expand on Hover Experimental Features
             var(--zen-element-separation) / 2 + 1px
         ) !important;
 
-        /* Hide (update) notifications on expanded sidebar - on expanded sidebar check (If only proper css if() conditions were implemented in Firefox, and not just Chrome...)*/
-        --theme-sidebar_expand_on_hover-on_expanded_display_none: none;
+        /* Hide (update) notifications on collapsed sidebar - on collapsed sidebar check (If only proper css if() conditions were implemented in Firefox, and not just Chrome...)*/
+        --theme-sidebar_expand_on_hover-if_collapsed_display_none: none;
     }
 
-    /* Zen Essentials (Collapsed Bar)*/
+    /* Zen Essentials (On Collapsed Bar)*/
     /*
     * Determine Essentials Container Height
     *
@@ -678,7 +678,7 @@ Sidebar Expand on Hover Experimental Features
             --theme-sidebar_expand_on_hover-essentials_collapsed_tab_height: 150px;
         }
     }
-
+    /* Collapsed sidebar */
     #navigator-toolbox:not(
         [zen-has-hover],
         [movingtab],
@@ -693,7 +693,9 @@ Sidebar Expand on Hover Experimental Features
         :has(#TabsToolbar[open="true"]) /* When edit theme picker is open */
     ) {
         .zen-essentials-container {
-            height: var(--theme-sidebar_expand_on_hover-essentials_collapsed_tab_height) !important;
+            height: var(
+                --theme-sidebar_expand_on_hover-essentials_collapsed_tab_height
+            ) !important;
             /*
             transition: transform var(--theme-sidebar_expand_on_hover-transition_speed) ease-out,
                         display 0s linear 0.3s !important;
@@ -730,7 +732,7 @@ Sidebar Expand on Hover Experimental Features
         }
     }
 
-    /* Expanded bar */
+    /* Expanded sidebar */
     #navigator-toolbox:is(
         [zen-has-hover],
         [movingtab],
@@ -742,7 +744,7 @@ Sidebar Expand on Hover Experimental Features
         :has(#TabsToolbar-customization-target > zen-workspace-creation),
         /* When a folder label is being edited */
         :has(.tab-label-container-editing),
-        /* Due to be added - When ANY panel element (like the folders tab group preview) is opened (For future-resistant changes) -
+        /* to-do - When ANY panel element (like the folders tab group preview) is opened
         this CSS is invalid beacuse :has cannot go outside of #navigator-toolbox
         ; change "#navigator-toolbox" to "body" & adjust acoordingly later:
         :has(html#main-window > body#mainPopupSet > panel[panel-open="true"])
@@ -766,10 +768,10 @@ Sidebar Expand on Hover Experimental Features
     }
 }
 
-/* Hide (update) notifications on expanded sidebar -*/
+/* Hide (update) notifications on collapsed sidebar */
 .zen-sidebar-notification-body {
-    /*Notifications are placed OUTSIDE #navigator-toolbox, so it relies on a seperate variable to check if the sidebar is expanded instead of using #navigator-toolbox:is([zen-has-hover],...) directly*/
+    /*Notifications are placed OUTSIDE #navigator-toolbox, so it relies on a seperate variable to check if the sidebar is collapsed instead of using #navigator-toolbox:is([zen-has-hover],...) directly*/
     display: var(
-        --theme-sidebar_expand_on_hover-on_expanded_display_none
+        --theme-sidebar_expand_on_hover-if_collapsed_display_none
     ) !important;
 }
