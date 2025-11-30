@@ -447,11 +447,6 @@
           :has(.tab-label-container-editing),
           :has(#TabsToolbar[open="true"]) /*When edit theme picker is open; to allow you to see what the gradient looks like while editing*/
       ) {
-                /* Due to be added - Manual Fix: Hide workspace name on sidebar collapse; https://github.com/Uiniel/zen-mods/issues/80 */
-                vbox.zen-workspace-tabs-section.zen-current-workspace-indicator {
-                    /*display: none !important;*/
-                }
-
                 /* Show only active/first/no(todo) button*/
                 #zen-workspaces-button {
                     toolbarbutton:not([active="true"]) {
