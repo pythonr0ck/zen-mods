@@ -199,29 +199,23 @@
                     background-image: var(
                         --theme-sidebar_expand_on_hover-background_gradient,
                         linear-gradient(var(--zen-primary-color))
-                    ); /*hsl(from CurrentColor h s l / 1) is always opaque, var(--zen-main-browser-background) is not*/
+                    ); /*var(--zen-main-browser-background) is transparent, so it must be combined with an opaque background color to make the sidebar background opaque*/
 
                     @media (prefers-color-scheme: dark) {
                         background-color: color-mix(
                             in hsl,
                             #202020,
                             var(--zen-primary-color)
-                        ); /*Use for gradient backgrounds*/ /* var(--sidebar-background-color, #202020) */
+                        ); /*Used only for gradient backgrounds*/ /* var(--sidebar-background-color, #202020) */
                     }
                     @media (prefers-color-scheme: light) {
                         background-color: color-mix(
                             in hsl,
                             #e0e3f0,
-                            var(--zen-primary-color)
-                        ); /*#ebebeb*/ /*Use for gradient backgrounds*/ /* var(--sidebar-background-color, #202020) */ /*Current Color is same as #e0e3f0*/
+                            /*#ebebeb*/ var(--zen-primary-color)
+                        ); /*Used only for gradient backgrounds*/ /* var(--sidebar-background-color, #ebebeb) */ /*Current Color is same as #e0e3f0*/
                     }
-                    /*background-color: color-mix(in hsl, hsl(from var(--sidebar-background-color, #202020) h s l / 1), var(--zen-primary-color)); /*FALLBACK - Use for gradient backgrounds*/ /* var(--sidebar-background-color, #202020) */ /*Current Color is same as #e0e3f0*/
-                    /*background-color: hsl(from CurrentColor h s 33 / 1); /*FALLBACK - Use for gradient backgrounds*/
-                    /*
-              background-color: var(--zen-primary-color); /*FALLBACK - Use for solid backgrounds*/
-                    /*
-              --zen-main-browser-background: #202020 !important;
-              var(--zen-primary-color)*/
+                    /*Unused - Make a Color Opaque (replace CurrentColor): hsl(from CurrentColor h s l / 1)*/
 
                     /* End Fix */
                     background-attachment: fixed !important;
