@@ -655,6 +655,9 @@ Sidebar Expand on Hover Experimental Features
         --zen-toolbox-padding: calc(
             var(--zen-element-separation) / 2 + 1px
         ) !important;
+
+        /* Hide (update) notifications on expanded sidebar - on expanded sidebar check (If only proper css if() conditions were implemented in Firefox, and not just Chrome...)*/
+        --theme-sidebar_expand_on_hover-on_expanded_display_none: none;
     }
 
     /* Zen Essentials (Collapsed Bar)*/
@@ -784,4 +787,12 @@ Sidebar Expand on Hover Experimental Features
 
         --zen-toolbox-padding: calc(0px) !important;
     }
+}
+
+/* Hide (update) notifications on expanded sidebar -*/
+.zen-sidebar-notification-body {
+    /*Notifications are placed OUTSIDE #navigator-toolbox, so it relies on a seperate variable to check if the sidebar is expanded instead of using #navigator-toolbox:is([zen-has-hover],...) directly*/
+    display: var(
+        --theme-sidebar_expand_on_hover-on_expanded_display_none
+    ) !important;
 }
