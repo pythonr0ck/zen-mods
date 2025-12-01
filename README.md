@@ -9,7 +9,7 @@
 - [ ] Add configurable/revertable options
 - [ ] Improve Animations (Essentials Animation between expanded/collapsed state)
 - [ ] Fix abrupt truncation on current tab indicator [Referenced from #76](https://github.com/Uiniel/zen-mods/issues/76#issuecomment-2884305863)
-- [ ] Hide scrollbar on collapsed sidebar [Referenced from #76](https://github.com/Uiniel/zen-mods/issues/76#issuecomment-2852383433)
+- [x] Hide scrollbar on collapsed sidebar [Referenced from #76](https://github.com/Uiniel/zen-mods/issues/76#issuecomment-2852383433)
 - [ ] Add [Big Essentials Mod](https://zen-browser.app/mods/9bbaab67-a2c8-4d79-837f-90cd72a8932a/) support
 - [ ] Fix window controls shifting to sidebar when tabs are placed on right
 - [ ] Fix - Folder Search Popup: Sidebar collapses upon hovering over the popup

@@ -775,3 +775,10 @@ Sidebar Expand on Hover Experimental Features
         --theme-sidebar_expand_on_hover-if_collapsed_display_none
     ) !important;
 }
+
+/* Hide scrollbar on collapsed sidebar */
+scrollbox:nth-child(5) {
+    scrollbar-width: var(
+        --theme-sidebar_expand_on_hover-if_collapsed_display_none
+    ) !important;
+}
