@@ -584,17 +584,20 @@ Sidebar Expand on Hover Experimental Features
             display: flex !important;
             justify-content: flex-start !important;
             margin-left: 2px !important;
+            min-width: 100% !important; /*Make workspace icon display at full size*/
 
-            > toolbarbutton.toolbarbutton-1.chromeclass-toolbar-additional.zen-workspaces-actions {
+            /* Hide every element inside by default */
+            > * {
                 display: none !important;
             }
-            /*
-            When there is a workspace icon, hide the name (so that the icon can be displayed properly since the name takes up space)
-            When there is NO workspace icons, do nothing (so the name can show)
-            */
-            > .zen-current-workspace-indicator-icon:not([no-icon])
+            /* When there is a workspace icon, display the icon */
+            > .zen-current-workspace-indicator-icon:not([no-icon]){
+                display: block !important;
+            }
+            /* When there is NO workspace icons, display the name */
+            > .zen-current-workspace-indicator-icon:is([no-icon])
                 ~ .zen-current-workspace-indicator-name {
-                display: none !important;
+                display: block !important;
             }
         }
 
