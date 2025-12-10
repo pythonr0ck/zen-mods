@@ -299,12 +299,20 @@
                 }
             }
 
+            /* Move sidebar content up and down when bookmark toolbar is shown */
+            #zen-sidebar-top-buttons:not([customizing]){
+                /*                 On Toolbar: 38px - 30px = 8px  ->  Moves collapsed sidebar content DOWN
+                    Not on toolbar: [unset value] - 30px = -30px  ->  Collapsed sidebar content UP */
+                margin-top: calc(var(--zen-toolbar-height-with-bookmarks) - var(--zen-toolbar-height)) !important;
+            }
+
             /* Hide empty top buttons */
             #zen-sidebar-top-buttons:not([customizing]):has(
             #zen-sidebar-top-buttons-customization-target:empty, /* When no toolbar items */
             #zen-sidebar-top-buttons-customization-target > #zen-sidebar-top-buttons-separator:only-child /* Sometimes this toolbar item shows up by itself, no idea why*/
             ) {
-                display: none !important; /* Hide the unnecessary empty space */
+                /* Remove unnecessary empty space (-30px) */ /* and Move collapsed sidebar content up and down when bookmark toolbar is shown */
+                margin-top: calc(-30px + var(--zen-toolbar-height-with-bookmarks) - var(--zen-toolbar-height)) !important;
             }
 
             #zen-sidebar-bottom-buttons,
