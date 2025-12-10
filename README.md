@@ -1,7 +1,7 @@
 # Sidebar Expand on Hover
 
 - Fixed compatibility for Zen v1.17.11b! 
-- Added: Proper Collapsed Essentials, Highly Accurate Expanded Sidebar Background Colors, Fix Collapsed Folders, etc.
+- Added: Proper Collapsed Essentials, Nearly Accurate Expanded Sidebar Background Colors, Fix Collapsed Folders, etc.
 
 **Note:** This release is close to being completed. Additional configurable/revertable options and animations are still due to be added.
 
@@ -14,6 +14,7 @@
 - [ ] Fix window controls shifting to sidebar when tabs are placed on right
 - [ ] Fix - Folder Search Popup: Sidebar collapses upon hovering over the popup
 - [ ] Change navbar-toolbar padding to align with sidebar properly (Happens on varying var(--zen-element-separation) values)
+- [ ] Fix - Only Sidebar layout support
 
 ## How to Download
 Download with Sine Mod Manager (Recommended): Using Sine will allow this mod to be updated as this mod receives updates through github.
@@ -22,6 +23,7 @@ Download with Sine Mod Manager (Recommended): Using Sine will allow this mod to 
 
 1. Download Sine Mod Manager (if not already installed)
 2. Open Settings -> Sine Mods (`about:preferences#sineMods`)
+    - You can enable auto-updates here too
 3. Under the "add your own [mod] locally from a GitHub repo." input box, insert `pythonr0ck/zen-mods/tree/main/sidebar-expand-on-hover` and click on the install button.
 
 Download Manually (Instructions taken from [quop](https://github.com/qoup/zen-mods)):
