@@ -1,9 +1,29 @@
 # Sidebar Expand on Hover
 
-- Fixed compatibility for Zen v1.17.11b! 
-- Added: Proper Collapsed Essentials, Nearly Accurate Expanded Sidebar Background Colors, Fix Collapsed Folders, etc.
+My personally (and actively!) maintained version of Sidebar Expand on Hover.
 
-**Note:** This release is close to being completed. Additional configurable/revertable options and animations are still due to be added.
+This fork fixes compatibility with newer Zen versions + a few of my own features added in.
+
+### Highlights
+- Fixed compatibility for Zen v1.17.11b! 
+- Added: Collapsed Essentials, Collapsed Folders, etc.
+
+<table>
+  <tr>
+    <td>
+        <img src="Sidebar-Collapsed-Compact_Essentials.png"/>
+        <p>Compact Collapsed Essentials</p>
+    </td>
+    <td>
+        <img src="Sidebar-Collapsed-Essentials.png"/>
+        <p>Not-Compact Collapsed Essentials</p>
+    </td>
+    <td>
+        <img src="Sidebar-Expanded.png"/>
+        <p>Expanded Sidebar</p>
+    </td>
+  </tr>
+</table>
 
 ## To do
 - [ ] Add configurable/revertable options
@@ -17,7 +37,8 @@
 - [ ] Fix - Only Sidebar layout support
 
 ## How to Download
-Download with Sine Mod Manager (Recommended): Using Sine will allow this mod to be updated as this mod receives updates through github.
+### Download with Sine Mod Manager (Recommended)
+Using Sine will allow this mod to be updated as this mod receives updates through github.
 
 > Sine Mod Manager: <https://github.com/CosmoCreeper/Sine>
 
@@ -26,7 +47,8 @@ Download with Sine Mod Manager (Recommended): Using Sine will allow this mod to 
     - You can enable auto-updates here too
 3. Under the "add your own [mod] locally from a GitHub repo." input box, insert `pythonr0ck/zen-mods/tree/main/sidebar-expand-on-hover` and click on the install button.
 
-Download Manually (Instructions taken from [quop](https://github.com/qoup/zen-mods)):
+### Download Manually
+> Instructions taken from [quop](https://github.com/qoup/zen-mods):
 
 1. Install <https://zen-browser.app/mods/bd92a9a0-1c00-4187-a66e-94c389fa5a59>
 2. Open `about:support` in Zen. Under "Application Basics" find "Profile Directory" and click on open directory or open it in the console.
