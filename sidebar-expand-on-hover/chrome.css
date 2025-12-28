@@ -316,6 +316,7 @@
                     -30px + var(--zen-toolbar-height-with-bookmarks) -
                         var(--zen-toolbar-height)
                 ) !important;
+                pointer-events: none; /* Prevent empty buttons from interfering with sidebar hover */
             }
 
             #zen-sidebar-bottom-buttons,

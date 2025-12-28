@@ -35,7 +35,7 @@ This fork fixes compatibility with newer Zen versions + a few of my own features
 - [ ] Fix - Folder Search Popup: Sidebar collapses upon hovering over the popup
 - [ ] Change titlebar (navbar-toolbar) padding to align with sidebar properly (Happens on varying var(--zen-element-separation) values)
 - [ ] Fix - Only Sidebar layout support
-- [ ] Fix accidental sidebar expand on titlebar hover
+- [x] Fix accidental sidebar expand on empty top buttons (sidebar toolbar) hover
 - [ ] Fix having no Essentials causes empty padding
 
 ## How to Download
