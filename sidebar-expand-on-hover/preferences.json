@@ -1,18 +1,18 @@
 [
   {
-    "type": "dropdown",
     "property": "theme.sidebar_expand_on_hover.collapsed_essentials_style",
     "label": "Collapsed Essentials Style",
+    "type": "dropdown",
     "value": "string",
-    "defaultValue": "Condensed",
+    "defaultValue": "condensed",
     "options": [
       {
-        "value": "Condensed",
-        "label": "Condensed"
+        "label": "Condensed",
+        "value": "condensed"
       },
       {
-        "value": "Spaced-Out",
-        "label": "Spaced-Out"
+        "label": "Spaced-Out",
+        "value": "spaced-out"
       }
     ]
   },
@@ -33,6 +33,18 @@
     "label": "Center the sidebar foot buttons in columns on collapsed sidebar view.",
     "type": "checkbox",
     "defaultValue": true
+  },
+  {
+    "property": "theme.sidebar_expand_on_hover.collapsed_folder_style",
+    "label": "Folder Indicator Style",
+    "type": "dropdown",
+    "value": "string",
+    "options": [
+      {
+        "label": "Side Border",
+        "value": "side_border"
+      }
+    ]
   },
   {
     "property": "theme.sidebar_expand_on_hover.inverted_tabs",
