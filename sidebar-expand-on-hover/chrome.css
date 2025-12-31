@@ -5,7 +5,7 @@
 /* Set default values */
 :root {
     /*--theme-sidebar_expand_on_hover-essentials_expanded_tab_width: 75px; /*to-do, - should be actual width of each essential tab, should only be adjusted if some other mod changes the tab size*/
-    --theme-sidebar_expand_on_hover-essentials_collapsed_tab_margin: -10px; /*adjust vertical spacing between each essential tab*/
+    --theme-sidebar_expand_on_hover-essentials_collapsed_tab_margin: -12px; /*adjust vertical spacing between each essential tab*/
     --theme-sidebar_expand_on_hover-essentials_collapsed_columns: 2; /*adjustable number of columns*/
     --theme-sidebar_expand_on_hover-essentials_collapsed_width: calc(
         var(--theme-sidebar_expand_on_hover-expanded_width) /
@@ -22,7 +22,7 @@
 /* Collapsed Essential Styles */
 @media (-moz-pref("theme.sidebar_expand_on_hover.collapsed_essentials_style", "condensed")) {
     :root {
-        --theme-sidebar_expand_on_hover-essentials_collapsed_tab_margin: -10px; /*adjust vertical spacing between each essential tab*/
+        --theme-sidebar_expand_on_hover-essentials_collapsed_tab_margin: -12px; /*adjust vertical spacing between each essential tab*/
     }
 }
 
