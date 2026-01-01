@@ -30,9 +30,9 @@
   },
   {
     "property": "theme.sidebar_expand_on_hover.hide_workspace_indicator",
-    "label": "Hide top workspace indicator",
+    "label": "Hide top indicator and show bottom (Uncheck to swap)",
     "type": "checkbox",
-    "defaultValue": true
+    "defaultValue": false
   },
   {
     "property": "theme.sidebar_expand_on_hover.collapse_buttons",

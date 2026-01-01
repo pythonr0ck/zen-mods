@@ -1,5 +1,5 @@
 # Sidebar Expand on Hover
-> Download with Sine [here](#download-with-sine-mod-manager-recommended)
+> Download with Sine Mod Manager [here](#download-with-sine-mod-manager-recommended)
 
 My personally (and actively!) maintained version of Sidebar Expand on Hover.
 
@@ -33,6 +33,7 @@ This fork fixes compatibility with newer Zen versions + a few of my own features
     - [x] Configurable Collapsed Essentials Styles
     - [x] Folder Decorations
     - [x] Center top/bottom sidebar buttons
+    - [ ] Option to revert collapsed Essentials (for performance)
 - [ ] Improve Animations (Essentials Animation between expanded/collapsed state)
 - [ ] Add [Big Essentials Mod](https://zen-browser.app/mods/9bbaab67-a2c8-4d79-837f-90cd72a8932a/) support
   ### Fixes
@@ -41,10 +42,11 @@ This fork fixes compatibility with newer Zen versions + a few of my own features
 - [ ] ~~Fix window controls shifting to sidebar when tabs are placed on right~~
 - [ ] ~~Fix - Folder Search Popup: Sidebar collapses upon hovering over the popup~~
 - [ ] Change titlebar (navbar-toolbar) padding to align with sidebar properly (Happens on varying var(--zen-element-separation) values)
-- [ ] ~~Fix - Only Sidebar layout support~~
+- [ ] Fix - Only Sidebar layout support
 - [x] Fix accidental sidebar expand on empty top buttons (sidebar toolbar) hover
 - [x] Fix having no Essentials causes empty padding
 - [x] Fix radial gradient support for Zen 1.17.13b
+- [ ] Fix Collapsed Essentials to adjust acoordingly to expanded sidebar width
 
 ## How to Download
 ### Download with Sine Mod Manager (Recommended)
@@ -77,6 +79,7 @@ With this mod the sidebar expands when you hover it. It only works when the brow
 Addionally this mod collapses the buttons below the tabs to provide a smoother experience. Per default your active workspace is shown while the sidebar is collapsed (only works when the workspace switcher is placed there).
 
 ## Preferences
+- **Collapsed Essentials Style**: Choose between the Condensed Style or the more minimalistic Spaced-Out Style (transitions between expanded/collapsed sidebar states better visually) *(default: condensed)*
 - **Hide top workspace indicator**: since the active workspace is already shown below, this theme hides the workspace indicator at the top, if you don't want this: deactivate this setting. *(default: on)*
 - **Collapse the buttons to only show current workspace**: If you don't wish for your buttons to only show your current workspace when collapsed: deactivate this setting and it shows the first button instead when collapsed *(default: on)*
 - **Inverted Tab Direction**: Favicon on the right, title in the middle, close button on the left. Less moving parts when the sidebar is on the right. *(default: off)*

@@ -580,15 +580,17 @@ Experimental Features
         /* Align sidebar foot buttons vertically in columns when pref is set*/
         @media (-moz-bool-pref: "theme.sidebar_expand_on_hover.align_buttons") {
             #zen-sidebar-foot-buttons {
-                flex-direction: column !important;
+                flex-direction: column-reverse !important;
                 justify-content: center !important;
 
                 > #zen-create-new-button {
                     display: none !important;
                 }
 
-                > #zen-workspaces-button {
-                    display: none !important;
+                @media not (-moz-bool-pref: "theme.sidebar_expand_on_hover.hide_workspace_indicator") {
+                    > #zen-workspaces-button {
+                        display: none !important;
+                    }
                 }
             }
         }
@@ -797,12 +799,16 @@ Experimental Features
             }
         }
 
-        /* revert changes made )*/
         #zen-sidebar-foot-buttons {
-            padding-left: 6px !important; /* to-do: change from fixed value? */
-            padding-right: 6px !important; /* to-do: change from fixed value? */
-            /*padding-bottom: 1px !important;*/
+            /* revert flex direction to row */
             flex-direction: row !important;
+
+            /* Align expanded foot buttons to match the same position as collapsed foot buttons */
+            @media (-moz-bool-pref: "theme.sidebar_expand_on_hover.align_buttons") {
+                padding-left: 6px !important; /* to-do: change from fixed value? */
+                padding-right: 6px !important; /* to-do: change from fixed value? */
+                /*padding-bottom: 1px !important;*/
+            }
         }
 
         .zen-essentials-container {
