@@ -62,6 +62,8 @@ Using Sine will allow this mod to be updated as this mod receives updates throug
 3. Under the "add your own [mod] locally from a GitHub repo." input box, insert `pythonr0ck/zen-mods/tree/main/sidebar-expand-on-hover` and click on the install button.
 
 ### Download Manually
+Installing the mod manually is not recommended because it **cannot update itself**. Please use the Sine Mod Manager to install.
+
 > Instructions taken from [quop](https://github.com/qoup/zen-mods):
 
 1. Install <https://zen-browser.app/mods/bd92a9a0-1c00-4187-a66e-94c389fa5a59>
