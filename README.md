@@ -39,8 +39,8 @@ I don't necessarily plan to bring any more features or any old ones not included
 - [ ] Improve Animations (Essentials Animation between expanded/collapsed state)
 - [ ] Add [Big Essentials Mod](https://zen-browser.app/mods/9bbaab67-a2c8-4d79-837f-90cd72a8932a/) support
   ### Fixes
-- [x] Fix abrupt truncation on current tab indicator [Referenced from #76](https://github.com/Uiniel/zen-mods/issues/76#issuecomment-2884305863)
-- [x] Hide scrollbar on collapsed sidebar [Referenced from #76](https://github.com/Uiniel/zen-mods/issues/76#issuecomment-2852383433)
+- [x] Fix abrupt truncation on current tab indicator: [Uiniel#76](https://github.com/Uiniel/zen-mods/issues/76#issuecomment-2884305863)
+- [x] Hide scrollbar on collapsed sidebar: [Uiniel#76](https://github.com/Uiniel/zen-mods/issues/76#issuecomment-2852383433)
 - [ ] ~~Fix window controls shifting to sidebar when tabs are placed on right~~
 - [ ] ~~Fix - Folder Search Popup: Sidebar collapses upon hovering over the popup~~
 - [ ] ~~Change titlebar (navbar-toolbar) padding to align with sidebar properly (Happens on varying var(--zen-element-separation) values)~~
@@ -49,6 +49,8 @@ I don't necessarily plan to bring any more features or any old ones not included
 - [x] Fix having no Essentials causes empty padding
 - [x] Fix radial gradient support for Zen 1.17.13b
 - [ ] Fix Collapsed Essentials to be compatible with varying expanded sidebar width values*
+- [ ] Fix macOS/linux support: toolbar and window controls
+- [ ] Delay Expand on Hover: [Uiniel#44](https://github.com/Uiniel/zen-mods/issues/44)
 
 ## How to Download
 > **Important:** set the browser layout to Single Toolbar or Multiple Toolbar depending on how the expanded sidebar should look like after you install this mod.
