@@ -20,13 +20,29 @@
 }
 
 /* Collapsed Essential Styles */
-@media (-moz-pref:"theme.sidebar_expand_on_hover.collapsed_essentials_style", "condensed") {
+@media (-moz-pref("theme.sidebar_expand_on_hover.collapsed_essentials_style", "condensed")) {
+    /* For Sine Mod */
     :root {
         --theme-sidebar_expand_on_hover-essentials_collapsed_tab_margin: -12px; /*adjust vertical spacing between each essential tab*/
     }
 }
 
-@media (-moz-pref:"theme.sidebar_expand_on_hover.collapsed_essentials_style", "spaced-out") {
+@media (-moz-pref: "theme.sidebar_expand_on_hover.collapsed_essentials_style", "condensed") {
+    /* For Zen Mod */
+    :root {
+        --theme-sidebar_expand_on_hover-essentials_collapsed_tab_margin: -12px; /*adjust vertical spacing between each essential tab*/
+    }
+}
+
+@media (-moz-pref("theme.sidebar_expand_on_hover.collapsed_essentials_style", "spaced-out")) {
+    /* For Sine Mod */
+    :root {
+        --theme-sidebar_expand_on_hover-essentials_collapsed_tab_margin: 0px; /*adjust vertical spacing between each essential tab*/
+    }
+}
+
+@media (-moz-pref: "theme.sidebar_expand_on_hover.collapsed_essentials_style", "spaced-out") {
+    /* For Zen Mod */
     :root {
         --theme-sidebar_expand_on_hover-essentials_collapsed_tab_margin: 0px; /*adjust vertical spacing between each essential tab*/
     }
@@ -183,331 +199,296 @@
             }
         }
 
-            #navigator-toolbox {
-                z-index: 4 !important;
-                width: var(--zen-toolbox-max-width) !important;
-                max-width: var(--zen-toolbox-max-width) !important;
-                min-width: var(--zen-toolbox-max-width) !important;
-                position: relative !important;
+        #navigator-toolbox {
+            z-index: 4 !important;
+            width: var(--zen-toolbox-max-width) !important;
+            max-width: var(--zen-toolbox-max-width) !important;
+            min-width: var(--zen-toolbox-max-width) !important;
+            position: relative !important;
 
-                /* I have no idea how to replicate the browser background, I don't know where the colors come from, the computed values in the inspector don't match anything on screen.
+            /* I have no idea how to replicate the browser background, I don't know where the colors come from, the computed values in the inspector don't match anything on screen.
                 This is as close as I was able to get so far.
                 */
-                &::before {
-                    position: absolute;
-                    content: "";
-                    width: calc(
-                        var(--zen-sidebar-width) - var(--zen-toolbox-padding)
-                    );
-                    height: 100%;
-                    opacity: 0;
-                    transition:
-                        60ms opacity ease-in
-                            calc(
-                                var(
-                                        --theme-sidebar_expand_on_hover-transition_speed
-                                    ) -
-                                    60ms
-                            ),
-                        width ease-in-out
+            &::before {
+                position: absolute;
+                content: "";
+                width: calc(
+                    var(--zen-sidebar-width) - var(--zen-toolbox-padding)
+                );
+                height: 100%;
+                opacity: 0;
+                transition:
+                    60ms opacity ease-in
+                        calc(
                             var(
-                                --theme-sidebar_expand_on_hover-transition_speed
-                            );
-                    z-index: -1;
+                                    --theme-sidebar_expand_on_hover-transition_speed
+                                ) -
+                                60ms
+                        ),
+                    width ease-in-out
+                        var(--theme-sidebar_expand_on_hover-transition_speed);
+                z-index: -1;
 
-                    /*Expanded Sidebar BG - */
-                    /*background-color: var(--zen-primary-color);*/ /*Solid color backround*/ /*Fallback when --zen-main-browser-background is transparent but it does NOT have an empty value*/
+                /*Expanded Sidebar BG - */
+                /*background-color: var(--zen-primary-color);*/ /*Solid color backround*/ /*Fallback when --zen-main-browser-background is transparent but it does NOT have an empty value*/
 
-                    background-image: var(
-                        --theme-sidebar_expand_on_hover-if_background_gradient,
-                        linear-gradient(var(--zen-primary-color))
-                    ); /*var(--zen-main-browser-background) is transparent, so it must be combined with an opaque background color to make the sidebar background opaque*/
+                background-image: var(
+                    --theme-sidebar_expand_on_hover-if_background_gradient,
+                    linear-gradient(var(--zen-primary-color))
+                ); /*var(--zen-main-browser-background) is transparent, so it must be combined with an opaque background color to make the sidebar background opaque*/
 
-                    @media (prefers-color-scheme: dark) {
-                        background-color: color-mix(
-                            in hsl,
-                            #202020,
-                            var(--zen-primary-color)
-                        ); /*Used only for gradient backgrounds*/ /* var(--sidebar-background-color, #202020) */
-                    }
-                    @media (prefers-color-scheme: light) {
-                        background-color: color-mix(
-                            in hsl,
-                            #e0e3f0,
-                            /*#ebebeb*/ var(--zen-primary-color)
-                        ); /*Used only for gradient backgrounds*/ /* var(--sidebar-background-color, #ebebeb) */ /*Current Color is same as #e0e3f0*/
-                    }
-                    /*Unused - Make a Color Opaque (replace CurrentColor): hsl(from CurrentColor h s l / 1)*/
+                @media (prefers-color-scheme: dark) {
+                    background-color: color-mix(
+                        in hsl,
+                        #202020,
+                        var(--zen-primary-color)
+                    ); /*Used only for gradient backgrounds*/ /* var(--sidebar-background-color, #202020) */
+                }
+                @media (prefers-color-scheme: light) {
+                    background-color: color-mix(
+                        in hsl,
+                        #e0e3f0,
+                        /*#ebebeb*/ var(--zen-primary-color)
+                    ); /*Used only for gradient backgrounds*/ /* var(--sidebar-background-color, #ebebeb) */ /*Current Color is same as #e0e3f0*/
+                }
+                /*Unused - Make a Color Opaque (replace CurrentColor): hsl(from CurrentColor h s l / 1)*/
 
-                    /* End Fix */
-                    background-attachment: fixed !important;
-                    /*
+                /* End Fix */
+                background-attachment: fixed !important;
+                /*
               background-size: 100% !important; /*Needs to be 100% of window size* /
               */
-                    backdrop-filter: blur(5px) !important;
-                    border-top-right-radius: 8px !important;
-                    border-bottom-right-radius: 8px !important;
-                }
-
-                > #titlebar,
-                > #zen-sidebar-top-buttons,
-                > #nav-bar {
-                    width: calc(
-                        var(--zen-sidebar-width) - var(--zen-toolbox-padding)
-                    ) !important;
-                    max-width: var(--zen-sidebar-width) !important;
-                    min-width: var(--zen-toolbar-min-width) !important;
-                    padding-right: var(--zen-toolbox-padding) !important;
-                }
-
-                > #titlebar,
-                > #zen-sidebar-top-buttons {
-                    overflow: hidden !important;
-                    /*Causes layout jank during transition when combined with the essentials tab transformation workaround in userChrome.
-              transition: width ease-in-out var(--theme-sidebar_expand_on_hover-transition_speed), max-width ease-in-out var(--theme-sidebar_expand_on_hover-transition_speed);*/
-                }
-
-                > #nav-bar {
-                    margin: 0 !important;
-                    padding-left: var(--zen-toolbox-padding) !important;
-                    transition:
-                        var(--ext-theme-background-transition),
-                        width ease-in-out
-                            var(
-                                --theme-sidebar_expand_on_hover-transition_speed
-                            ),
-                        max-width ease-in-out
-                            var(
-                                --theme-sidebar_expand_on_hover-transition_speed
-                            ) !important;
-                }
+                backdrop-filter: blur(5px) !important;
+                border-top-right-radius: 8px !important;
+                border-bottom-right-radius: 8px !important;
             }
 
-            /* Essentials */
-            #zen-essentials-container {
-                display: flex !important;
-                justify-content: center !important;
-                gap: 0 !important;
-                overflow-x: scroll !important;
-
-                > .tabbrowser-tab {
-                    flex: 1 !important;
-                    /* Todo change this from hardcoded value */
-                    min-width: 40px !important;
-                    margin-inline: calc(
-                        var(--zen-toolbox-padding) - 2px
-                    ) !important;
-                    transition:
-                        flex-grow
-                            var(
-                                --theme-sidebar_expand_on_hover-transition_speed
-                            )
-                            linear,
-                        min-width
-                            var(
-                                --theme-sidebar_expand_on_hover-transition_speed
-                            )
-                            linear,
-                        margin-inline
-                            var(
-                                --theme-sidebar_expand_on_hover-transition_speed
-                            )
-                            linear !important;
-                }
-            }
-
-            /* Move sidebar content up and down when bookmark toolbar is shown */
-            #zen-sidebar-top-buttons:not([customizing]) {
-                /*                 On Toolbar: 38px - 30px = 8px  ->  Moves collapsed sidebar content DOWN
-                    Not on toolbar: [unset value] - 30px = -30px  ->  Collapsed sidebar content UP */
-                margin-top: calc(
-                    var(--zen-toolbar-height-with-bookmarks) -
-                        var(--zen-toolbar-height)
+            > #titlebar,
+            > #zen-sidebar-top-buttons,
+            > #nav-bar {
+                width: calc(
+                    var(--zen-sidebar-width) - var(--zen-toolbox-padding)
                 ) !important;
+                max-width: var(--zen-sidebar-width) !important;
+                min-width: var(--zen-toolbar-min-width) !important;
+                padding-right: var(--zen-toolbox-padding) !important;
             }
 
-            /* Hide empty top buttons */
-            #zen-sidebar-top-buttons:not([customizing]):has(
+            > #titlebar,
+            > #zen-sidebar-top-buttons {
+                overflow: hidden !important;
+                /*Causes layout jank during transition when combined with the essentials tab transformation workaround in userChrome.
+              transition: width ease-in-out var(--theme-sidebar_expand_on_hover-transition_speed), max-width ease-in-out var(--theme-sidebar_expand_on_hover-transition_speed);*/
+            }
+
+            > #nav-bar {
+                margin: 0 !important;
+                padding-left: var(--zen-toolbox-padding) !important;
+                transition:
+                    var(--ext-theme-background-transition),
+                    width ease-in-out
+                        var(--theme-sidebar_expand_on_hover-transition_speed),
+                    max-width ease-in-out
+                        var(--theme-sidebar_expand_on_hover-transition_speed) !important;
+            }
+        }
+
+        /* Essentials */
+        #zen-essentials-container {
+            display: flex !important;
+            justify-content: center !important;
+            gap: 0 !important;
+            overflow-x: scroll !important;
+
+            > .tabbrowser-tab {
+                flex: 1 !important;
+                /* Todo change this from hardcoded value */
+                min-width: 40px !important;
+                margin-inline: calc(
+                    var(--zen-toolbox-padding) - 2px
+                ) !important;
+                transition:
+                    flex-grow
+                        var(--theme-sidebar_expand_on_hover-transition_speed)
+                        linear,
+                    min-width
+                        var(--theme-sidebar_expand_on_hover-transition_speed)
+                        linear,
+                    margin-inline
+                        var(--theme-sidebar_expand_on_hover-transition_speed)
+                        linear !important;
+            }
+        }
+
+        /* Move sidebar content up and down when bookmark toolbar is shown */
+        #zen-sidebar-top-buttons:not([customizing]) {
+            /*                 On Toolbar: 38px - 30px = 8px  ->  Moves collapsed sidebar content DOWN
+                    Not on toolbar: [unset value] - 30px = -30px  ->  Collapsed sidebar content UP */
+            margin-top: calc(
+                var(--zen-toolbar-height-with-bookmarks) -
+                    var(--zen-toolbar-height)
+            ) !important;
+        }
+
+        /* Hide empty top buttons */
+        #zen-sidebar-top-buttons:not([customizing]):has(
             #zen-sidebar-top-buttons-customization-target:empty, /* When no toolbar items */
             #zen-sidebar-top-buttons-customization-target > #zen-sidebar-top-buttons-separator:only-child /* Sometimes this toolbar item shows up by itself, no idea why*/
             ) {
-                /* Remove unnecessary empty space (-30px) */ /* and Move collapsed sidebar content up and down when bookmark toolbar is shown */
-                margin-top: calc(
-                    -30px + var(--zen-toolbar-height-with-bookmarks) -
-                        var(--zen-toolbar-height)
-                ) !important;
-                pointer-events: none; /* Prevent empty buttons from interfering with sidebar hover */
-            }
+            /* Remove unnecessary empty space (-30px) */ /* and Move collapsed sidebar content up and down when bookmark toolbar is shown */
+            margin-top: calc(
+                -30px + var(--zen-toolbar-height-with-bookmarks) -
+                    var(--zen-toolbar-height)
+            ) !important;
+            pointer-events: none; /* Prevent empty buttons from interfering with sidebar hover */
+        }
 
-            #zen-sidebar-bottom-buttons,
-            #zen-sidebar-top-buttons-customization-target {
-                justify-content: center !important;
-                gap: 0 !important;
+        #zen-sidebar-bottom-buttons,
+        #zen-sidebar-top-buttons-customization-target {
+            justify-content: center !important;
+            gap: 0 !important;
 
-                & > :not(panel, #zen-sidebar-top-buttons-separator) {
-                    overflow: hidden !important;
-                    padding: 0 !important;
-                    min-width: fit-content !important;
-                    min-height: fit-content !important;
-                    flex-grow: 1 !important;
-                    transition:
-                        flex-grow
-                            var(
-                                --theme-sidebar_expand_on_hover-transition_speed
-                            )
-                            linear,
-                        width
-                            var(
-                                --theme-sidebar_expand_on_hover-transition_speed
-                            )
-                            linear,
-                        margin-inline
-                            var(
-                                --theme-sidebar_expand_on_hover-transition_speed
-                            )
-                            linear !important;
-                    margin-inline: 2px !important;
-                }
-
-                toolbarspring {
-                    transition:
-                        flex-grow
-                            var(
-                                --theme-sidebar_expand_on_hover-transition_speed
-                            )
-                            cubic-bezier(0.001, 1, 0.003, 0.99),
-                        width
-                            var(
-                                --theme-sidebar_expand_on_hover-transition_speed
-                            )
-                            linear,
-                        margin-inline
-                            var(
-                                --theme-sidebar_expand_on_hover-transition_speed
-                            )
-                            linear !important;
-                    flex-grow: 100 !important;
-                    display: flex !important;
-                }
-            }
-
-            #zen-workspaces-button {
-                flex-direction: row !important;
-                justify-content: center !important;
-                gap: 0 !important;
+            & > :not(panel, #zen-sidebar-top-buttons-separator) {
+                overflow: hidden !important;
+                padding: 0 !important;
                 min-width: fit-content !important;
-                transition: min-width
-                    var(--theme-sidebar_expand_on_hover-transition_speed) linear !important;
+                min-height: fit-content !important;
+                flex-grow: 1 !important;
+                transition:
+                    flex-grow
+                        var(--theme-sidebar_expand_on_hover-transition_speed)
+                        linear,
+                    width var(--theme-sidebar_expand_on_hover-transition_speed)
+                        linear,
+                    margin-inline
+                        var(--theme-sidebar_expand_on_hover-transition_speed)
+                        linear !important;
+                margin-inline: 2px !important;
+            }
 
-                toolbarbutton {
-                    margin: 0 !important;
-                    flex-grow: 1 !important;
-                    transition:
-                        flex-grow
-                            var(
-                                --theme-sidebar_expand_on_hover-transition_speed
-                            )
-                            linear,
-                        width
-                            var(
-                                --theme-sidebar_expand_on_hover-transition_speed
-                            )
-                            linear,
-                        margin-inline
-                            var(
-                                --theme-sidebar_expand_on_hover-transition_speed
-                            )
-                            linear !important;
-                    margin-inline: 2px !important;
-                    overflow: hidden !important;
+            toolbarspring {
+                transition:
+                    flex-grow
+                        var(--theme-sidebar_expand_on_hover-transition_speed)
+                        cubic-bezier(0.001, 1, 0.003, 0.99),
+                    width var(--theme-sidebar_expand_on_hover-transition_speed)
+                        linear,
+                    margin-inline
+                        var(--theme-sidebar_expand_on_hover-transition_speed)
+                        linear !important;
+                flex-grow: 100 !important;
+                display: flex !important;
+            }
+        }
+
+        #zen-workspaces-button {
+            flex-direction: row !important;
+            justify-content: center !important;
+            gap: 0 !important;
+            min-width: fit-content !important;
+            transition: min-width
+                var(--theme-sidebar_expand_on_hover-transition_speed) linear !important;
+
+            toolbarbutton {
+                margin: 0 !important;
+                flex-grow: 1 !important;
+                transition:
+                    flex-grow
+                        var(--theme-sidebar_expand_on_hover-transition_speed)
+                        linear,
+                    width var(--theme-sidebar_expand_on_hover-transition_speed)
+                        linear,
+                    margin-inline
+                        var(--theme-sidebar_expand_on_hover-transition_speed)
+                        linear !important;
+                margin-inline: 2px !important;
+                overflow: hidden !important;
+            }
+        }
+
+        #tabbrowser-arrowscrollbox-periphery {
+            margin-inline: 0 !important;
+
+            /* Decrease the seperator line to the same length as before */
+            &::before {
+                margin-inline: var(--tab-block-margin);
+            }
+        }
+
+        /* Expanded sidebar */
+        #navigator-toolbox:is(
+          [zen-has-hover],
+          [movingtab],
+          [flash-popup],
+          [has-popup-menu],
+          :has(.tabbrowser-tab:active),
+          :has(toolbarbutton[open="true"]:not(#zen-sidepanel-button), #urlbar[open]),
+          /* When creating a workspace */
+          :has(#TabsToolbar-customization-target > zen-workspace-creation),
+          /* When a folder label is being edited */
+          :has(.tab-label-container-editing),
+          :has(#TabsToolbar[open="true"]) /* When edit theme picker is open */
+      ) {
+            --zen-sidebar-width: var(
+                --theme-sidebar_expand_on_hover-expanded_width
+            ) !important;
+            &::before {
+                opacity: 1;
+                transition:
+                    60ms opacity ease-in,
+                    width ease-in-out
+                        var(--theme-sidebar_expand_on_hover-transition_speed);
+            }
+        }
+
+        /* Collapsed sidebar */
+        #navigator-toolbox:not(
+          [zen-has-hover],
+          [movingtab],
+          [flash-popup],
+          [has-popup-menu],
+          :has(.tabbrowser-tab:active),
+          :has(toolbarbutton[open="true"]:not(#zen-sidepanel-button), #urlbar[open]),
+          /* When creating a workspace */
+          :has(#TabsToolbar-customization-target > zen-workspace-creation),
+          /* When a folder label is being edited */
+          :has(.tab-label-container-editing),
+          :has(#TabsToolbar[open="true"]) /* When edit theme picker is open */
+      ) {
+            /* Show only active/first/no(todo) button*/
+            #zen-workspaces-button {
+                toolbarbutton:not([active="true"]) {
+                    flex-grow: 0 !important;
+                    width: 0 !important;
+                    margin-inline: 0 !important;
                 }
             }
 
-            #tabbrowser-arrowscrollbox-periphery {
+            #zen-essentials-container:has([selected])
+                > .tabbrowser-tab:not([selected]),
+            #zen-essentials-container:not(:has([selected]))
+                > .tabbrowser-tab:not(:first-child) {
+                flex-grow: 0 !important;
+                width: 0 !important;
+                min-width: 0 !important;
                 margin-inline: 0 !important;
-
-                /* Decrease the seperator line to the same length as before */
-                &::before {
-                    margin-inline: var(--tab-block-margin);
-                }
             }
 
-            /* Expanded sidebar */
-            #navigator-toolbox:is(
-          [zen-has-hover],
-          [movingtab],
-          [flash-popup],
-          [has-popup-menu],
-          :has(.tabbrowser-tab:active),
-          :has(toolbarbutton[open="true"]:not(#zen-sidepanel-button), #urlbar[open]),
-          /* When creating a workspace */
-          :has(#TabsToolbar-customization-target > zen-workspace-creation),
-          /* When a folder label is being edited */
-          :has(.tab-label-container-editing),
-          :has(#TabsToolbar[open="true"]) /* When edit theme picker is open */
-      ) {
-                --zen-sidebar-width: var(
-                    --theme-sidebar_expand_on_hover-expanded_width
-                ) !important;
-                &::before {
-                    opacity: 1;
-                    transition:
-                        60ms opacity ease-in,
-                        width ease-in-out
-                            var(
-                                --theme-sidebar_expand_on_hover-transition_speed
-                            );
-                }
+            toolbarspring {
+                flex-grow: 0 !important;
+                width: 0 !important;
+                min-width: 0 !important;
+                margin-inline: 0 !important;
             }
 
-            /* Collapsed sidebar */
-            #navigator-toolbox:not(
-          [zen-has-hover],
-          [movingtab],
-          [flash-popup],
-          [has-popup-menu],
-          :has(.tabbrowser-tab:active),
-          :has(toolbarbutton[open="true"]:not(#zen-sidepanel-button), #urlbar[open]),
-          /* When creating a workspace */
-          :has(#TabsToolbar-customization-target > zen-workspace-creation),
-          /* When a folder label is being edited */
-          :has(.tab-label-container-editing),
-          :has(#TabsToolbar[open="true"]) /* When edit theme picker is open */
-      ) {
-                /* Show only active/first/no(todo) button*/
-                #zen-workspaces-button {
-                    toolbarbutton:not([active="true"]) {
-                        flex-grow: 0 !important;
-                        width: 0 !important;
-                        margin-inline: 0 !important;
-                    }
-                }
-
-                #zen-essentials-container:has([selected])
-                    > .tabbrowser-tab:not([selected]),
-                #zen-essentials-container:not(:has([selected]))
-                    > .tabbrowser-tab:not(:first-child) {
-                    flex-grow: 0 !important;
-                    width: 0 !important;
-                    min-width: 0 !important;
-                    margin-inline: 0 !important;
-                }
-
-                toolbarspring {
-                    flex-grow: 0 !important;
-                    width: 0 !important;
-                    min-width: 0 !important;
-                    margin-inline: 0 !important;
-                }
-
-                /*to-do*/ /*Workaround for invisible top buttons seperator*/
-                #zen-sidebar-top-buttons-customization-target
-                    > :not(:nth-child(1 of toolbarbutton, toolbaritem)) {
-                    flex-grow: 0 !important;
-                    width: 0 !important;
-                    min-width: 0 !important;
-                    margin-inline: 0 !important;
-                }
+            /*to-do*/ /*Workaround for invisible top buttons seperator*/
+            #zen-sidebar-top-buttons-customization-target
+                > :not(:nth-child(1 of toolbarbutton, toolbaritem)) {
+                flex-grow: 0 !important;
+                width: 0 !important;
+                min-width: 0 !important;
+                margin-inline: 0 !important;
+            }
 
             /* Support for tabs on the right */
             #navigator-toolbox[zen-right-side="true"] {
@@ -603,7 +584,17 @@ Experimental Features
         }
 
         zen-folder {
-            @media (-moz-pref:"theme.sidebar_expand_on_hover.collapsed_folder_style", "side_border") {
+            @media (-moz-pref("theme.sidebar_expand_on_hover.collapsed_folder_style", "side_border")) {
+                /* For Sine Mod */
+                background: linear-gradient(
+                    to right,
+                    #ffffff60 10%,
+                    transparent 10%
+                ) !important;
+                background-position: left;
+            }
+            @media (-moz-pref: "theme.sidebar_expand_on_hover.collapsed_folder_style", "side_border") {
+                /* For Zen Mod */
                 background: linear-gradient(
                     to right,
                     #ffffff50 10%,
@@ -616,7 +607,17 @@ Experimental Features
         .tab-group-container > zen-folder:nth-of-type(1n) {
             /*all nested folders*/
             margin-left: 8px !important; /*limit margin*/
-            @media (-moz-pref:"theme.sidebar_expand_on_hover.collapsed_folder_style", "side_border") {
+            @media (-moz-pref("theme.sidebar_expand_on_hover.collapsed_folder_style", "side_border")) {
+                /* For Sine Mod */
+                background: linear-gradient(
+                    to right,
+                    #ffffff60 10%,
+                    transparent 10%
+                ) !important;
+                background-position: left;
+            }
+            @media (-moz-pref: "theme.sidebar_expand_on_hover.collapsed_folder_style", "side_border") {
+                /* For Zen Mod */
                 background: linear-gradient(
                     to right,
                     #ffffff60 10%,
