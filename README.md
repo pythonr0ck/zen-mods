@@ -35,7 +35,7 @@ I don't necessarily plan to bring any more features or any old ones not included
     - [x] Configurable Collapsed Essentials Styles
     - [x] Folder Decorations
     - [x] Center top/bottom sidebar buttons
-    - [x] Option to revert collapsed Essentials (for performance)
+    - [ ] Option to revert collapsed Essentials (for performance)
 - [ ] Collapsed buttons?: Show only first foot item, and show active buttons when active (e.g. downloading file)
   - For now you can disable the preference: align sidebar foot buttons vertically, so that they don't take up space
 - [ ] Improve Animations (Essentials Animation between expanded/collapsed state)

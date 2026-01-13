@@ -724,15 +724,19 @@ Experimental Features
                     --theme-sidebar_expand_on_hover-essentials_collapsed_tab_margin
                 ) !important; /* adjustable - tab horizontal spacing*/
                 /*--tab-min-height: 46px; /*14px*/
-                --tab-min-width: 50px;
-                /*height: 20px !important;*/
-                width: 22px !important;
-                margin-left: 15px !important;
-                background: none !important;
+                /*--tab-min-width: 50px;*/
+                left: 10px !important;
 
                 transform: scaleX(
                     4
                 ) !important; /* Undo Essentials Tab **Icon** Squishing */
+
+                .tab-background {
+                    width: 20px !important;
+                    min-height: 10px !important;
+                    height: 30px !important;
+                    transform: translate(24px, 12px) !important;
+                }
             }
 
             /*

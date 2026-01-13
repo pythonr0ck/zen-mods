@@ -36,7 +36,7 @@
   },
   {
     "property": "theme.sidebar_expand_on_hover.align_buttons",
-    "label": "Align the sidebar foot buttons vertically (in columns) on collapsed sidebar view",
+    "label": "Align the sidebar foot buttons vertically",
     "type": "checkbox",
     "defaultValue": true
   },
