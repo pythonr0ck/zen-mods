@@ -1,7 +1,7 @@
 [
   {
     "property": "zen.view.experimental-force-window-controls-left",
-    "label": "Force Left Window Controls",
+    "label": "Force Left Window Controls (Restart Zen to apply)",
     "type": "checkbox",
     "defaultValue": false
   },
