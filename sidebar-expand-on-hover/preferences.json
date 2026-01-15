@@ -1,5 +1,11 @@
 [
   {
+    "property": "zen.view.experimental-force-window-controls-left",
+    "label": "Force Left Window Controls",
+    "type": "checkbox",
+    "defaultValue": false
+  },
+  {
     "property": "theme.sidebar_expand_on_hover.collapsed_essentials_style",
     "label": "Collapsed Essentials Style",
     "type": "dropdown",
