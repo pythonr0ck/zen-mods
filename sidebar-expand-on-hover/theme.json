@@ -1,0 +1,16 @@
+{
+  "id": "sidebar-expand-on-hover",
+  "name": "Expand Sidebar on Hover Reforked [Dev]",
+  "description": "Readds the expand on hover feature to zen with a few extra features",
+  "homepage": "https://github.com/pythonr0ck/zen-mods/tree/dev/sidebar-expand-on-hover",
+  "readme": "https://raw.githubusercontent.com/pythonr0ck/zen-mods/refs/heads/dev/sidebar-expand-on-hover/README.md",
+  "image": "https://github.com/pythonr0ck/zen-mods/blob/dev/sidebar-expand-on-hover/screenshot.png",
+  "style": "https://raw.githubusercontent.com/pythonr0ck/zen-mods/refs/heads/dev/sidebar-expand-on-hover/chrome.css",
+  "preferences": "https://raw.githubusercontent.com/pythonr0ck/zen-mods/refs/heads/dev/sidebar-expand-on-hover/preferences.json",
+  "author": "pythonr0ck",
+  "version": "3.0.0-prerelease",
+  "tags": ["sidebar", "tab", "hover"],
+  "createdAt": "2026-01-15",
+  "updatedAt": "2026-01-15",
+  "fork": ["zen"]
+}
