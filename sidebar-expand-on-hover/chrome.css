@@ -491,6 +491,18 @@ background-image: var(--theme-sidebar_expand_on_hover-if_background_gradient, li
                 direction: ltr !important;
             }
         }
+
+        @media (-moz-bool-pref: "theme.sidebar_expand_on_hover.inverted_tabs") {
+            .tabbrowser-tab:not([zen-essential]) {
+                direction: rtl !important;
+            }
+
+            tab-group:is([split-view-group]) {
+                .tabbrowser-tab:not([zen-essential]) {
+                    direction: ltr !important;
+                }
+            }
+        }
     }
 }
 
@@ -610,6 +622,16 @@ Still need to merge this...
 
     .tab-group-container {
         margin-left: -8px !important; /* limit margin*/ /* is negative of the other value */
+
+        /* Override limit margin for Inverted tabs to 0px*/
+        @media (-moz-bool-pref("theme.sidebar_expand_on_hover.inverted_tabs")) {
+            /* For Sine Mod */
+            margin-right: 0px !important; /*limit margin*/
+        }
+        @media (-moz-bool-pref: "theme.sidebar_expand_on_hover.inverted_tabs") {
+            /* For Zen Mod */
+            margin-right: 0px !important; /*limit margin*/
+        }
     }
 
     /*MEDIA CONTROLS - optional*/

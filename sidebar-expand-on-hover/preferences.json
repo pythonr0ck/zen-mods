@@ -42,7 +42,7 @@
   },
   {
     "property": "theme.sidebar_expand_on_hover.inverted_tabs",
-    "label": "Inverted Tab Direction",
+    "label": "Invert Tab Direction on right-side sidebar",
     "type": "checkbox",
     "defaultValue": false
   },
