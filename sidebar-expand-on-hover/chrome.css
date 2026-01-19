@@ -470,25 +470,25 @@ background-image: var(--theme-sidebar_expand_on_hover-if_background_gradient, li
             min-width: 0 !important;
             margin-inline: 0 !important;
         }
+    }
 
-        /* Support for tabs on the right */
-        #navigator-toolbox[zen-right-side="true"] {
-            direction: rtl !important;
+    /* Support for tabs on the right */
+    #navigator-toolbox[zen-right-side="true"] {
+        direction: rtl !important;
 
-            #titlebar,
-            #zen-sidebar-top-buttons {
+        #titlebar,
+        #zen-sidebar-top-buttons {
+            direction: ltr !important;
+        }
+
+        #titlebar {
+            padding-left: var(--zen-toolbox-padding) !important;
+            padding-right: 0 !important;
+        }
+
+        @media (-moz-bool-pref: "zen.view.use-single-toolbar") {
+            #nav-bar {
                 direction: ltr !important;
-            }
-
-            #titlebar {
-                padding-left: var(--zen-toolbox-padding) !important;
-                padding-right: 0 !important;
-            }
-
-            @media (-moz-bool-pref: "zen.view.use-single-toolbar") {
-                #nav-bar {
-                    direction: ltr !important;
-                }
             }
         }
     }
