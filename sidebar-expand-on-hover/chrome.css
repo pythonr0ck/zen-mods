@@ -48,55 +48,70 @@
     }
 }
 
-@-moz-document url-prefix("chrome:") {
-    :root:has(#customization-container:not([hidden])) {
-        /* Show flexible space in customiation mode in top buttons, since this mod allows them there */
-        #zen-sidebar-top-buttons-customization-target toolbarspring {
-            display: flex !important;
-        }
+:root:has(#customization-container:not([hidden])) {
+    /* Show flexible space in customiation mode in top buttons, since this mod allows them there */
+    #zen-sidebar-top-buttons-customization-target toolbarspring {
+        display: flex !important;
+    }
+}
+
+/* Expanded Sidebar BG -
+The --theme-sidebar_expand_on_hover-if_background_gradient variable is going to be used to set up an if()-like statement below. (The checking happens here (instead of where it is used later on) because CSS doesnt allow for checking elements outside of parent.) */
+#main-window[style*="--zen-main-browser-background: linear-gradient"], /* Support Zen versions below 1.17.13b */
+#main-window[style*="--zen-main-browser-background: radial-gradient"] /* Support Zen versions above 1.17.13b */ {
+    /*if the browser background is a gradient...*/
+    --theme-sidebar_expand_on_hover-if_background_gradient: var(
+        --zen-main-browser-background
+    ); /*store data to remember that it is a gradient.*/
+}
+/*Later on in #navigator-toolbox &::before...
+
+Set gradient to background if true, otherwise set it to a solid color:
+background-image: var(--theme-sidebar_expand_on_hover-if_background_gradient, linear-gradient(var(--zen-primary-color)));
+    Expanded Sidebar BG */
+
+:root:not(
+    [zen-compact-mode="true"],
+    :has(#customization-container:not([hidden]))
+) {
+    --tab-min-width: calc(36px) !important;
+    --zen-toolbox-padding: calc(
+        var(--zen-element-separation) / 2 + 1px
+    ) !important;
+    --zen-toolbox-max-width: calc(
+        var(--tab-min-width) + var(--tab-block-margin) +
+            var(--zen-toolbox-padding) * 2
+    ) !important;
+    --zen-toolbox-min-width: 1px !important;
+    --zen-sidebar-width: var(--zen-toolbox-max-width) !important;
+
+    #zen-sidebar-splitter {
+        display: none !important;
     }
 
-    /* Expanded Sidebar BG -
-  The --theme-sidebar_expand_on_hover-if_background_gradient variable is going to be used to set up an if()-like statement below. (The checking happens here (instead of where it is used later on) because CSS doesnt allow for checking elements outside of parent.) */
-    #main-window[style*="--zen-main-browser-background: linear-gradient"], /* Support Zen versions below 1.17.13b */
-    #main-window[style*="--zen-main-browser-background: radial-gradient"] /* Support Zen versions above 1.17.13b */ {
-        /*if the browser background is a gradient...*/
-        --theme-sidebar_expand_on_hover-if_background_gradient: var(
-            --zen-main-browser-background
-        ); /*store data to remember that it is a gradient.*/
+    /* Change tab shape to square when collapsed */
+    tab:not([zen-essential]) .tab-background {
+        min-width: var(--tab-min-width) !important;
     }
-    /*Later on in #navigator-toolbox &::before...
 
-  Set gradient to background if true, otherwise set it to a solid color:
-  background-image: var(--theme-sidebar_expand_on_hover-if_background_gradient, linear-gradient(var(--zen-primary-color)));
-     Expanded Sidebar BG */
-
-    :root:not(
-        [zen-compact-mode="true"],
-        :has(#customization-container:not([hidden]))
-    ) {
-        --tab-min-width: calc(36px) !important;
-        --zen-toolbox-padding: calc(
-            var(--zen-element-separation) / 2 + 1px
+    /* Center tab icon */
+    .tab-icon-stack > .tab-icon-image {
+        margin-inline-start: calc(
+            calc(
+                    var(--tab-min-width) + var(--tab-block-margin) * 2 -
+                        var(--tab-inline-padding) * 2 - 16px
+                ) /
+                2
         ) !important;
-        --zen-toolbox-max-width: calc(
-            var(--tab-min-width) + var(--tab-block-margin) +
-                var(--zen-toolbox-padding) * 2
-        ) !important;
-        --zen-toolbox-min-width: 1px !important;
-        --zen-sidebar-width: var(--zen-toolbox-max-width) !important;
+    }
 
-        #zen-sidebar-splitter {
-            display: none !important;
-        }
+    /* Same design as tabs for New Tab button and other toolbarbuttons */
+    #TabsToolbar-customization-target toolbarbutton {
+        margin: var(--tab-block-margin) !important;
+        padding: 0 calc(var(--tab-inline-padding) - var(--tab-block-margin)) !important;
+        justify-content: flex-start !important;
 
-        /* Change tab shape to square when collapsed */
-        tab:not([zen-essential]) .tab-background {
-            min-width: var(--tab-min-width) !important;
-        }
-
-        /* Center tab icon */
-        .tab-icon-stack > .tab-icon-image {
+        & > .toolbarbutton-icon {
             margin-inline-start: calc(
                 calc(
                         var(--tab-min-width) + var(--tab-block-margin) * 2 -
@@ -104,659 +119,280 @@
                     ) /
                     2
             ) !important;
+            margin-inline-end: var(--toolbarbutton-inner-padding) !important;
         }
 
-        /* Same design as tabs for New Tab button and other toolbarbuttons */
-        #TabsToolbar-customization-target toolbarbutton {
-            margin: var(--tab-block-margin) !important;
-            padding: 0 calc(var(--tab-inline-padding) - var(--tab-block-margin)) !important;
-            justify-content: flex-start !important;
-
-            & > .toolbarbutton-icon {
-                margin-inline-start: calc(
-                    calc(
-                            var(--tab-min-width) + var(--tab-block-margin) * 2 -
-                                var(--tab-inline-padding) * 2 - 16px
-                        ) /
-                        2
-                ) !important;
-                margin-inline-end: var(
-                    --toolbarbutton-inner-padding
-                ) !important;
-            }
-
-            & > .toolbarbutton-text {
-                padding: 0 !important;
-                align-items: center !important;
-            }
+        & > .toolbarbutton-text {
+            padding: 0 !important;
+            align-items: center !important;
         }
+    }
 
-        /* Stop New Tab button from increasing the width */
-        .zen-workspace-tabs-section {
-            width: calc(
-                var(--tab-min-width) + var(--tab-block-margin)
-            ) !important;
+    /* Stop New Tab button from increasing the width */
+    .zen-workspace-tabs-section {
+        width: calc(var(--tab-min-width) + var(--tab-block-margin)) !important;
+    }
+    /* Fuann-Kinoko - https://github.com/Uiniel/zen-mods/issues/76#issuecomment-2884305863
+    Fix abrupt truncation on current tab indicator by enforcing a minimum width
+    */
+    .zen-workspace-tabs-section:not(.zen-essentials-container) {
+        min-width: 100% !important;
+    }
+
+    tab[pinned]:not([zen-essential]) > stack {
+        --tab-inline-padding: 8px !important;
+        & > .tab-content {
+            padding: 0 var(--tab-inline-padding) !important;
+            min-width: 0 !important;
+            justify-content: unset !important;
         }
-        /* Fuann-Kinoko - https://github.com/Uiniel/zen-mods/issues/76#issuecomment-2884305863
-        Fix abrupt truncation on current tab indicator by enforcing a minimum width
-        */
-        .zen-workspace-tabs-section:not(.zen-essentials-container) {
-            min-width: 100% !important;
-        }
+    }
 
-        tab[pinned]:not([zen-essential]) > stack {
-            --tab-inline-padding: 8px !important;
-            & > .tab-content {
-                padding: 0 var(--tab-inline-padding) !important;
-                min-width: 0 !important;
-                justify-content: unset !important;
-            }
-        }
-
-        @media (not (-moz-bool-pref: "zen.view.use-single-toolbar")) and (not (-moz-platform: macos)) {
-            #navigator-toolbox {
-                margin-top: var(--zen-toolbar-height) !important;
-            }
-
-            #browser:has(#PersonalToolbar[collapsed="false"])
-                #navigator-toolbox {
-                margin-top: calc(var(--zen-toolbar-height) + 2.2em) !important;
-            }
-        }
-
-        /* Move topbar buttons in the now empty space */
-        @media (not (-moz-bool-pref: "zen.view.use-single-toolbar")) and (not (-moz-platform: macos)) {
-            #browser:has(#navigator-toolbox:not([zen-right-side="true"])) {
-                #zen-appcontent-wrapper {
-                    overflow: visible !important;
-
-                    /*
-                  Used to affect window buttons>[what I presume is always the close button?]: #zen-appcontent-navbar-container:has(#nav-bar>.titlebar-buttonbox-container:last-child)
-                  ^ I don't see how the window buttons relate to the padding--this might be some accidental selection the original developer made??
-                  ^ Removing this pseudo prevent this issue from happening:
-                  Quote: (#80) - https://github.com/Uiniel/zen-mods/issues/80:
-                  i click on a extension and it opens a popup, the navigation buttons, url bar and extension buttons move to the right side a little bit and in result the right side extension buttons go under the window controls.
-                  ^
-                  */
-                    #zen-appcontent-navbar-container {
-                        margin-left: calc(
-                            0px - var(--zen-toolbox-max-width)
-                        ) !important;
-                        /*ENSURES width of toolbar is adjusted too, fixes #80*/
-                        width: calc(0px - var(--zen-toolbox-max-width)) + 100% !important;
-                        /*to-do; bad logic - Add 5px padding by default, unless var zen-element-seperation is greater*/
-                        padding-left: clamp(
-                            5px,
-                            var(--zen-element-separation),
-                            50px
-                        ) !important;
-
-                        #nav-bar {
-                            margin-inline-start: var(--zen-element-separation);
-                        }
-                    }
-                }
-            }
-        }
-
+    @media (not (-moz-bool-pref: "zen.view.use-single-toolbar")) and (not (-moz-platform: macos)) {
         #navigator-toolbox {
-            z-index: 4 !important;
-            width: var(--zen-toolbox-max-width) !important;
-            max-width: var(--zen-toolbox-max-width) !important;
-            min-width: var(--zen-toolbox-max-width) !important;
-            position: relative !important;
+            margin-top: var(--zen-toolbar-height) !important;
+        }
 
-            /* I have no idea how to replicate the browser background, I don't know where the colors come from, the computed values in the inspector don't match anything on screen.
-                This is as close as I was able to get so far.
-                */
-            &::before {
-                position: absolute;
-                content: "";
-                width: calc(
-                    var(--zen-sidebar-width) - var(--zen-toolbox-padding)
-                );
-                height: 100%;
-                opacity: 0;
-                transition:
-                    60ms opacity ease-in
-                        calc(
-                            var(
-                                    --theme-sidebar_expand_on_hover-transition_speed
-                                ) -
-                                60ms
-                        ),
-                    width ease-in-out
-                        var(--theme-sidebar_expand_on_hover-transition_speed);
-                z-index: -1;
+        #browser:has(#PersonalToolbar[collapsed="false"]) #navigator-toolbox {
+            margin-top: calc(var(--zen-toolbar-height) + 2.2em) !important;
+        }
+    }
 
-                /*Expanded Sidebar BG - */
-                /*background-color: var(--zen-primary-color);*/ /*Solid color backround*/ /*Fallback when --zen-main-browser-background is transparent but it does NOT have an empty value*/
+    /* Move topbar buttons in the now empty space */
+    @media (not (-moz-bool-pref: "zen.view.use-single-toolbar")) and (not (-moz-platform: macos)) {
+        #browser:has(#navigator-toolbox:not([zen-right-side="true"])) {
+            #zen-appcontent-wrapper {
+                overflow: visible !important;
 
-                background-image: var(
-                    --theme-sidebar_expand_on_hover-if_background_gradient,
-                    linear-gradient(var(--zen-primary-color))
-                ); /*var(--zen-main-browser-background) is transparent, so it must be combined with an opaque background color to make the sidebar background opaque*/
-
-                @media (prefers-color-scheme: dark) {
-                    background-color: color-mix(
-                        in hsl,
-                        #202020,
-                        var(--zen-primary-color)
-                    ); /*Used only for gradient backgrounds*/ /* var(--sidebar-background-color, #202020) */
-                }
-                @media (prefers-color-scheme: light) {
-                    background-color: color-mix(
-                        in hsl,
-                        #e0e3f0,
-                        /*#ebebeb*/ var(--zen-primary-color)
-                    ); /*Used only for gradient backgrounds*/ /* var(--sidebar-background-color, #ebebeb) */ /*Current Color is same as #e0e3f0*/
-                }
-                /*Unused - Make a Color Opaque (replace CurrentColor): hsl(from CurrentColor h s l / 1)*/
-
-                /* End Fix */
-                background-attachment: fixed !important;
                 /*
-              background-size: 100% !important; /*Needs to be 100% of window size* /
-              */
-                backdrop-filter: blur(5px) !important;
-                border-top-right-radius: 8px !important;
-                border-bottom-right-radius: 8px !important;
-            }
+                Used to affect window buttons>[what I presume is always the close button?]: #zen-appcontent-navbar-container:has(#nav-bar>.titlebar-buttonbox-container:last-child)
+                ^ I don't see how the window buttons relate to the padding--this might be some accidental selection the original developer made??
+                ^ Removing this pseudo prevent this issue from happening:
+                Quote: (#80) - https://github.com/Uiniel/zen-mods/issues/80:
+                i click on a extension and it opens a popup, the navigation buttons, url bar and extension buttons move to the right side a little bit and in result the right side extension buttons go under the window controls.
+                ^
+                */
+                #zen-appcontent-navbar-container {
+                    margin-left: calc(
+                        0px - var(--zen-toolbox-max-width)
+                    ) !important;
+                    /*ENSURES width of toolbar is adjusted too, fixes #80*/
+                    width: calc(0px - var(--zen-toolbox-max-width)) + 100% !important;
+                    /*to-do; bad logic - Add 5px padding by default, unless var zen-element-seperation is greater*/
+                    padding-left: clamp(
+                        5px,
+                        var(--zen-element-separation),
+                        50px
+                    ) !important;
 
-            > #titlebar,
-            > #zen-sidebar-top-buttons,
-            > #nav-bar {
-                width: calc(
-                    var(--zen-sidebar-width) - var(--zen-toolbox-padding)
-                ) !important;
-                max-width: var(--zen-sidebar-width) !important;
-                min-width: var(--zen-toolbar-min-width) !important;
-                padding-right: var(--zen-toolbox-padding) !important;
-            }
-
-            > #titlebar,
-            > #zen-sidebar-top-buttons {
-                overflow: hidden !important;
-                /*Causes layout jank during transition when combined with the essentials tab transformation workaround in userChrome.
-              transition: width ease-in-out var(--theme-sidebar_expand_on_hover-transition_speed), max-width ease-in-out var(--theme-sidebar_expand_on_hover-transition_speed);*/
-            }
-
-            > #nav-bar {
-                margin: 0 !important;
-                padding-left: var(--zen-toolbox-padding) !important;
-                transition:
-                    var(--ext-theme-background-transition),
-                    width ease-in-out
-                        var(--theme-sidebar_expand_on_hover-transition_speed),
-                    max-width ease-in-out
-                        var(--theme-sidebar_expand_on_hover-transition_speed) !important;
-            }
-        }
-
-        /* Essentials */
-        #zen-essentials-container {
-            display: flex !important;
-            justify-content: center !important;
-            gap: 0 !important;
-            overflow-x: scroll !important;
-
-            > .tabbrowser-tab {
-                flex: 1 !important;
-                /* Todo change this from hardcoded value */
-                min-width: 40px !important;
-                margin-inline: calc(
-                    var(--zen-toolbox-padding) - 2px
-                ) !important;
-                transition:
-                    flex-grow
-                        var(--theme-sidebar_expand_on_hover-transition_speed)
-                        linear,
-                    min-width
-                        var(--theme-sidebar_expand_on_hover-transition_speed)
-                        linear,
-                    margin-inline
-                        var(--theme-sidebar_expand_on_hover-transition_speed)
-                        linear !important;
-            }
-        }
-
-        /* Move sidebar content up and down when bookmark toolbar is shown */
-        @media (not (-moz-platform: macos)) {
-            #zen-sidebar-top-buttons:not([customizing]) {
-                /*                 On Toolbar: 38px - 30px = 8px  ->  Moves collapsed sidebar content DOWN
-                        Not on toolbar: [unset value] - 30px = -30px  ->  Collapsed sidebar content UP */
-                margin-top: calc(
-                    var(--zen-toolbar-height-with-bookmarks) -
-                        var(--zen-toolbar-height)
-                ) !important;
-            }
-
-            /* Hide empty top buttons */
-            #zen-sidebar-top-buttons:not([customizing]):has(
-                #zen-sidebar-top-buttons-customization-target:empty, /* When no toolbar items */
-                #zen-sidebar-top-buttons-customization-target > #zen-sidebar-top-buttons-separator:only-child /* Sometimes this toolbar item shows up by itself, no idea why*/
-                ) {
-                /* Remove unnecessary empty space (-30px) */ /* and Move collapsed sidebar content up and down when bookmark toolbar is shown */
-                margin-top: calc(
-                    -30px + var(--zen-toolbar-height-with-bookmarks) -
-                        var(--zen-toolbar-height)
-                ) !important;
-                pointer-events: none; /* Prevent empty buttons from interfering with sidebar hover */
-            }
-        }
-
-        #zen-sidebar-bottom-buttons,
-        #zen-sidebar-top-buttons-customization-target {
-            justify-content: center !important;
-            gap: 0 !important;
-
-            & > :not(panel, #zen-sidebar-top-buttons-separator) {
-                overflow: hidden !important;
-                padding: 0 !important;
-                min-width: fit-content !important;
-                min-height: fit-content !important;
-                flex-grow: 1 !important;
-                transition:
-                    flex-grow
-                        var(--theme-sidebar_expand_on_hover-transition_speed)
-                        linear,
-                    width var(--theme-sidebar_expand_on_hover-transition_speed)
-                        linear,
-                    margin-inline
-                        var(--theme-sidebar_expand_on_hover-transition_speed)
-                        linear !important;
-                margin-inline: 2px !important;
-            }
-
-            toolbarspring {
-                transition:
-                    flex-grow
-                        var(--theme-sidebar_expand_on_hover-transition_speed)
-                        cubic-bezier(0.001, 1, 0.003, 0.99),
-                    width var(--theme-sidebar_expand_on_hover-transition_speed)
-                        linear,
-                    margin-inline
-                        var(--theme-sidebar_expand_on_hover-transition_speed)
-                        linear !important;
-                flex-grow: 100 !important;
-                display: flex !important;
-            }
-        }
-
-        #zen-workspaces-button {
-            flex-direction: row !important;
-            justify-content: center !important;
-            gap: 0 !important;
-            min-width: fit-content !important;
-            transition: min-width
-                var(--theme-sidebar_expand_on_hover-transition_speed) linear !important;
-
-            toolbarbutton {
-                margin: 0 !important;
-                flex-grow: 1 !important;
-                transition:
-                    flex-grow
-                        var(--theme-sidebar_expand_on_hover-transition_speed)
-                        linear,
-                    width var(--theme-sidebar_expand_on_hover-transition_speed)
-                        linear,
-                    margin-inline
-                        var(--theme-sidebar_expand_on_hover-transition_speed)
-                        linear !important;
-                margin-inline: 2px !important;
-                overflow: hidden !important;
-            }
-        }
-
-        #tabbrowser-arrowscrollbox-periphery {
-            margin-inline: 0 !important;
-
-            /* Decrease the seperator line to the same length as before */
-            &::before {
-                margin-inline: var(--tab-block-margin);
-            }
-        }
-
-        /* Expanded sidebar */
-        #navigator-toolbox:is(
-          [zen-has-hover],
-          [movingtab],
-          [flash-popup],
-          [has-popup-menu],
-          :has(.tabbrowser-tab:active),
-          :has(toolbarbutton[open="true"]:not(#zen-sidepanel-button), #urlbar[open]),
-          /* When creating a workspace */
-          :has(#TabsToolbar-customization-target > zen-workspace-creation),
-          /* When a folder label is being edited */
-          :has(.tab-label-container-editing),
-          :has(#TabsToolbar[open="true"]) /* When edit theme picker is open */
-      ) {
-            --zen-sidebar-width: var(
-                --theme-sidebar_expand_on_hover-expanded_width
-            ) !important;
-            &::before {
-                opacity: 1;
-                transition:
-                    60ms opacity ease-in,
-                    width ease-in-out
-                        var(--theme-sidebar_expand_on_hover-transition_speed);
-            }
-        }
-
-        /* Collapsed sidebar */
-        #navigator-toolbox:not(
-          [zen-has-hover],
-          [movingtab],
-          [flash-popup],
-          [has-popup-menu],
-          :has(.tabbrowser-tab:active),
-          :has(toolbarbutton[open="true"]:not(#zen-sidepanel-button), #urlbar[open]),
-          /* When creating a workspace */
-          :has(#TabsToolbar-customization-target > zen-workspace-creation),
-          /* When a folder label is being edited */
-          :has(.tab-label-container-editing),
-          :has(#TabsToolbar[open="true"]) /* When edit theme picker is open */
-      ) {
-            /* Show only active/first/no(todo) button*/
-            #zen-workspaces-button {
-                toolbarbutton:not([active="true"]) {
-                    flex-grow: 0 !important;
-                    width: 0 !important;
-                    margin-inline: 0 !important;
-                }
-            }
-
-            #zen-essentials-container:has([selected])
-                > .tabbrowser-tab:not([selected]),
-            #zen-essentials-container:not(:has([selected]))
-                > .tabbrowser-tab:not(:first-child) {
-                flex-grow: 0 !important;
-                width: 0 !important;
-                min-width: 0 !important;
-                margin-inline: 0 !important;
-            }
-
-            toolbarspring {
-                flex-grow: 0 !important;
-                width: 0 !important;
-                min-width: 0 !important;
-                margin-inline: 0 !important;
-            }
-
-            /*to-do*/ /*Workaround for invisible top buttons seperator*/
-            #zen-sidebar-top-buttons-customization-target
-                > :not(:nth-child(1 of toolbarbutton, toolbaritem)) {
-                flex-grow: 0 !important;
-                width: 0 !important;
-                min-width: 0 !important;
-                margin-inline: 0 !important;
-            }
-
-            /* Support for tabs on the right */
-            #navigator-toolbox[zen-right-side="true"] {
-                direction: rtl !important;
-
-                #titlebar,
-                #zen-sidebar-top-buttons {
-                    direction: ltr !important;
-                }
-
-                #titlebar {
-                    padding-left: var(--zen-toolbox-padding) !important;
-                    padding-right: 0 !important;
-                }
-
-                @media (-moz-bool-pref: "zen.view.use-single-toolbar") {
                     #nav-bar {
-                        direction: ltr !important;
+                        margin-inline-start: var(--zen-element-separation);
                     }
                 }
             }
         }
     }
 
-    /*
-=======================================
+    #navigator-toolbox {
+        z-index: 4 !important;
+        width: var(--zen-toolbox-max-width) !important;
+        max-width: var(--zen-toolbox-max-width) !important;
+        min-width: var(--zen-toolbox-max-width) !important;
+        position: relative !important;
 
-Experimental Features
-^ The CSS below was apart of my userchrome.css.
-  Still need to merge this...
-
-=======================================
-*/
-
-    /* Collapsed sidebar */
-    #navigator-toolbox:not(
-        [zen-has-hover],
-        [movingtab],
-        [flash-popup],
-        [has-popup-menu],
-        :has(.tabbrowser-tab:active),
-        :has(toolbarbutton[open="true"]:not(#zen-sidepanel-button), #urlbar[open]),
-        /* When creating a workspace */
-        :has(#TabsToolbar-customization-target > zen-workspace-creation),
-        /* When a folder label is being edited */
-        :has(.tab-label-container-editing),
-        :has(#TabsToolbar[open="true"]) /* When edit theme picker is open */
-    ) {
-        /* Align sidebar foot buttons vertically in columns when pref is set*/
-        @media (-moz-bool-pref: "theme.sidebar_expand_on_hover.align_buttons") {
-            #zen-sidebar-foot-buttons {
-                flex-direction: column-reverse !important;
-                justify-content: center !important;
-
-                > #zen-create-new-button {
-                    display: none !important;
-                }
-
-                @media not (-moz-bool-pref: "theme.sidebar_expand_on_hover.hide_workspace_indicator") {
-                    > #zen-workspaces-button {
-                        display: none !important;
-                    }
-                }
-            }
-        }
-
-        .zen-current-workspace-indicator {
-            display: flex !important;
-            justify-content: flex-start !important;
-            margin-left: 2px !important;
-            min-width: 100% !important; /* Make workspace icon display at full size */
-
-            /* Hide every element inside by default */
-            > * {
-                display: none !important;
-            }
-            /* When there is a workspace icon, display the icon */
-            > .zen-current-workspace-indicator-icon:not([no-icon]) {
-                display: block !important;
-            }
-            /* When there is NO workspace icons, display the name */
-            > .zen-current-workspace-indicator-icon:is([no-icon])
-                ~ .zen-current-workspace-indicator-name {
-                display: block !important;
-            }
-        }
-
-        /* Override and hide workspace indicator when pref is set */
-        @media (-moz-bool-pref: "theme.sidebar_expand_on_hover.hide_workspace_indicator") {
-            .zen-current-workspace-indicator {
-                display: none !important;
-            }
-        }
-
-        zen-folder {
-            @media (-moz-pref("theme.sidebar_expand_on_hover.collapsed_folder_style", "side_border")) {
-                /* For Sine Mod */
-                background: linear-gradient(
-                    to right,
-                    #ffffff60 10%,
-                    transparent 10%
-                ) !important;
-                background-position: left;
-            }
-            @media (-moz-pref: "theme.sidebar_expand_on_hover.collapsed_folder_style", "side_border") {
-                /* For Zen Mod */
-                background: linear-gradient(
-                    to right,
-                    #ffffff50 10%,
-                    transparent 10%
-                ) !important;
-                background-position: left;
-            }
-        }
-
-        .tab-group-container > zen-folder:nth-of-type(1n) {
-            /*all nested folders*/
-            margin-left: 8px !important; /*limit margin*/
-            @media (-moz-pref("theme.sidebar_expand_on_hover.collapsed_folder_style", "side_border")) {
-                /* For Sine Mod */
-                background: linear-gradient(
-                    to right,
-                    #ffffff60 10%,
-                    transparent 10%
-                ) !important;
-                background-position: left;
-            }
-            @media (-moz-pref: "theme.sidebar_expand_on_hover.collapsed_folder_style", "side_border") {
-                /* For Zen Mod */
-                background: linear-gradient(
-                    to right,
-                    #ffffff60 10%,
-                    transparent 10%
-                ) !important;
-                background-position: left;
-            }
-        }
-
-        .tab-group-container {
-            margin-left: -8px !important; /* limit margin*/ /* is negative of the other value */
-        }
-
-        /*MEDIA CONTROLS - optional*/
-
-        #zen-media-controls-hbox > #zen-media-focus-button {
-            display: block !important; /* Display the active playing tab's icon */
-            /*background-image: url('chrome://browser/skin/zen-icons/selectable/star-1.svg') !important;*/
-        }
-
-        --zen-toolbox-padding: calc(
-            var(--zen-element-separation) / 2 + 1px
-        ) !important;
-
-        /* Hide Ancestor Elements (on collapsed sidebar) */
-        /* - On collapsed sidebar checker */
-        --theme-sidebar_expand_on_hover-if_collapsed_display_none: none;
-    }
-
-    /* Zen Essentials (On Collapsed Bar)*/
-    #navigator-toolbox:not(
-        [zen-has-hover],
-        [movingtab],
-        [flash-popup],
-        [has-popup-menu],
-        :has(.tabbrowser-tab:active),
-        :has(toolbarbutton[open="true"]:not(#zen-sidepanel-button), #urlbar[open]),
-        /* When creating a workspace */
-        :has(#TabsToolbar-customization-target > zen-workspace-creation),
-        /* When a folder label is being edited */
-        :has(.tab-label-container-editing),
-        :has(#TabsToolbar[open="true"]) /* When edit theme picker is open */
-    ) {
-        /*
-        * Determine Essentials Container Height
-        *
-        * This solution uses the :has() and :not(:has()) selectors to detect
-        * the number of children (.tabbrowser-tab) inside the .zen-essentials-container
-        * and sets the --theme-sidebar_expand_on_hover-essentials_collapsed_tab_height variable accordingly.
-        */
-        /* --- 0 children (Does not have a 1st child) --- */
-        &:not(:has(.zen-essentials-container > .tabbrowser-tab:first-child)) {
-            --theme-sidebar_expand_on_hover-essentials_collapsed_tab_height: 0px; /*Each row of essentials is +50px tall*/
-        }
-
-        /* --- RANGE 1: 1 to 4 children (Does not have a 5th child) --- */
-        &:has(.zen-essentials-container > .tabbrowser-tab:nth-child(1)):not(
-                :has(.zen-essentials-container > .tabbrowser-tab:nth-child(5))
-            ) {
-            --theme-sidebar_expand_on_hover-essentials_collapsed_tab_height: 50px; /*Each row of essentials is +50px tall*/
-        }
-
-        /* --- RANGE 2: 5 to 8 children (Has a 5th child AND does not have a 9th child) --- */
-        &:has(.zen-essentials-container > .tabbrowser-tab:nth-child(5)):not(
-                :has(.zen-essentials-container > .tabbrowser-tab:nth-child(9))
-            ) {
-            --theme-sidebar_expand_on_hover-essentials_collapsed_tab_height: 100px;
-        }
-
-        /* --- RANGE 3: 9 to 12 children (Has a 9th child AND does not have a 13th child) --- */
-        &:has(.zen-essentials-container > .tabbrowser-tab:nth-child(9)):not(
-                :has(.zen-essentials-container > .tabbrowser-tab:nth-child(13))
-            ) {
-            --theme-sidebar_expand_on_hover-essentials_collapsed_tab_height: 150px;
-        }
-
-        .zen-essentials-container {
-            /* Center collapsed essentials container */
-            left: 0 !important;
-            /* Same thing
-            margin-left: var(--zen-toolbox-padding) !important;*/
-
-            transition:
-                transform var(--theme-sidebar_expand_on_hover-transition_speed)
-                    ease-out,
-                display 0s linear 0.3s !important;
-            width: var(
-                --theme-sidebar_expand_on_hover-essentials_collapsed_width
-            ) !important; /* adjustable - horizontal spacing*/
-
-            transform: scaleX(
-                0.25
-            ) !important; /* Squish Essentials to fit into collapsed sidebar */
-            transform-origin: top left !important;
-            height: var(
-                --theme-sidebar_expand_on_hover-essentials_collapsed_tab_height
-            ) !important;
-
-            > .tabbrowser-tab {
-                justify-content: center !important;
-                margin: var(
-                    --theme-sidebar_expand_on_hover-essentials_collapsed_tab_margin
-                ) !important; /* adjustable - tab horizontal spacing*/
-                /*--tab-min-height: 46px; /*14px*/
-                /*--tab-min-width: 50px;*/
-                left: 10px !important;
-
-                transform: scaleX(
-                    4
-                ) !important; /* Undo Essentials Tab **Icon** Squishing */
-
-                .tab-background {
-                    width: 20px !important;
-                    min-height: 10px !important;
-                    height: 30px !important;
-                    transform: translate(24px, 12px) !important;
-                }
-            }
-
-            /*
-              > .tabbrowser-tab {
-                  justify-content: center !important;
-                  margin: 0px !important;
-                  --tab-min-height: 14px;
-                  --tab-min-width: 0px;
-                  height: 20px !important;
-                  width: 16px !important;
-              }
+        /* I have no idea how to replicate the browser background, I don't know where the colors come from, the computed values in the inspector don't match anything on screen.
+            This is as close as I was able to get so far.
             */
+        &::before {
+            position: absolute;
+            content: "";
+            width: calc(var(--zen-sidebar-width) - var(--zen-toolbox-padding));
+            height: 100%;
+            opacity: 0;
+            transition:
+                60ms opacity ease-in
+                    calc(
+                        var(--theme-sidebar_expand_on_hover-transition_speed) -
+                            60ms
+                    ),
+                width ease-in-out
+                    var(--theme-sidebar_expand_on_hover-transition_speed);
+            z-index: -1;
+
+            /*Expanded Sidebar BG - */
+            /*background-color: var(--zen-primary-color);*/ /*Solid color backround*/ /*Fallback when --zen-main-browser-background is transparent but it does NOT have an empty value*/
+
+            background-image: var(
+                --theme-sidebar_expand_on_hover-if_background_gradient,
+                linear-gradient(var(--zen-primary-color))
+            ); /*var(--zen-main-browser-background) is transparent, so it must be combined with an opaque background color to make the sidebar background opaque*/
+
+            @media (prefers-color-scheme: dark) {
+                background-color: color-mix(
+                    in hsl,
+                    #202020,
+                    var(--zen-primary-color)
+                ); /*Used only for gradient backgrounds*/ /* var(--sidebar-background-color, #202020) */
+            }
+            @media (prefers-color-scheme: light) {
+                background-color: color-mix(
+                    in hsl,
+                    #e0e3f0,
+                    /*#ebebeb*/ var(--zen-primary-color)
+                ); /*Used only for gradient backgrounds*/ /* var(--sidebar-background-color, #ebebeb) */ /*Current Color is same as #e0e3f0*/
+            }
+            /*Unused - Make a Color Opaque (replace CurrentColor): hsl(from CurrentColor h s l / 1)*/
+
+            /* End Fix */
+            background-attachment: fixed !important;
+            /*
+            background-size: 100% !important; /*Needs to be 100% of window size* /
+            */
+            backdrop-filter: blur(5px) !important;
+            border-top-right-radius: 8px !important;
+            border-bottom-right-radius: 8px !important;
         }
 
-        .zen-essentials-container > .tabbrowser-tab,
-        #zen-welcome-initial-essentials-browser-sidebar-essentials
-            .tabbrowser-tab {
-            &:not([visuallyselected], [multiselected="true"]) .tab-background {
-                background: none !important;
-            }
+        > #titlebar,
+        > #zen-sidebar-top-buttons,
+        > #nav-bar {
+            width: calc(
+                var(--zen-sidebar-width) - var(--zen-toolbox-padding)
+            ) !important;
+            max-width: var(--zen-sidebar-width) !important;
+            min-width: var(--zen-toolbar-min-width) !important;
+            padding-right: var(--zen-toolbox-padding) !important;
+        }
+
+        > #titlebar,
+        > #zen-sidebar-top-buttons {
+            overflow: hidden !important;
+            /*Causes layout jank during transition when combined with the essentials tab transformation workaround in userChrome.
+            transition: width ease-in-out var(--theme-sidebar_expand_on_hover-transition_speed), max-width ease-in-out var(--theme-sidebar_expand_on_hover-transition_speed);*/
+        }
+
+        > #nav-bar {
+            margin: 0 !important;
+            padding-left: var(--zen-toolbox-padding) !important;
+            transition:
+                var(--ext-theme-background-transition),
+                width ease-in-out
+                    var(--theme-sidebar_expand_on_hover-transition_speed),
+                max-width ease-in-out
+                    var(--theme-sidebar_expand_on_hover-transition_speed) !important;
+        }
+    }
+
+    /* Essentials */
+    #zen-essentials-container {
+        display: flex !important;
+        justify-content: center !important;
+        gap: 0 !important;
+        overflow-x: scroll !important;
+
+        > .tabbrowser-tab {
+            flex: 1 !important;
+            /* Todo change this from hardcoded value */
+            min-width: 40px !important;
+            margin-inline: calc(var(--zen-toolbox-padding) - 2px) !important;
+            transition:
+                flex-grow var(--theme-sidebar_expand_on_hover-transition_speed)
+                    linear,
+                min-width var(--theme-sidebar_expand_on_hover-transition_speed)
+                    linear,
+                margin-inline
+                    var(--theme-sidebar_expand_on_hover-transition_speed) linear !important;
+        }
+    }
+
+    /* Move sidebar content up and down when bookmark toolbar is shown */
+    @media (not (-moz-platform: macos)) {
+        #zen-sidebar-top-buttons:not([customizing]) {
+            /*                 On Toolbar: 38px - 30px = 8px  ->  Moves collapsed sidebar content DOWN
+                    Not on toolbar: [unset value] - 30px = -30px  ->  Collapsed sidebar content UP */
+            margin-top: calc(
+                var(--zen-toolbar-height-with-bookmarks) -
+                    var(--zen-toolbar-height)
+            ) !important;
+        }
+
+        /* Hide empty top buttons */
+        #zen-sidebar-top-buttons:not([customizing]):has(
+            #zen-sidebar-top-buttons-customization-target:empty, /* When no toolbar items */
+            #zen-sidebar-top-buttons-customization-target > #zen-sidebar-top-buttons-separator:only-child /* Sometimes this toolbar item shows up by itself, no idea why*/
+            ) {
+            /* Remove unnecessary empty space (-30px) */ /* and Move collapsed sidebar content up and down when bookmark toolbar is shown */
+            margin-top: calc(
+                -30px + var(--zen-toolbar-height-with-bookmarks) -
+                    var(--zen-toolbar-height)
+            ) !important;
+            pointer-events: none; /* Prevent empty buttons from interfering with sidebar hover */
+        }
+    }
+
+    #zen-sidebar-bottom-buttons,
+    #zen-sidebar-top-buttons-customization-target {
+        justify-content: center !important;
+        gap: 0 !important;
+
+        & > :not(panel, #zen-sidebar-top-buttons-separator) {
+            overflow: hidden !important;
+            padding: 0 !important;
+            min-width: fit-content !important;
+            min-height: fit-content !important;
+            flex-grow: 1 !important;
+            transition:
+                flex-grow var(--theme-sidebar_expand_on_hover-transition_speed)
+                    linear,
+                width var(--theme-sidebar_expand_on_hover-transition_speed)
+                    linear,
+                margin-inline
+                    var(--theme-sidebar_expand_on_hover-transition_speed) linear !important;
+            margin-inline: 2px !important;
+        }
+
+        toolbarspring {
+            transition:
+                flex-grow var(--theme-sidebar_expand_on_hover-transition_speed)
+                    cubic-bezier(0.001, 1, 0.003, 0.99),
+                width var(--theme-sidebar_expand_on_hover-transition_speed)
+                    linear,
+                margin-inline
+                    var(--theme-sidebar_expand_on_hover-transition_speed) linear !important;
+            flex-grow: 100 !important;
+            display: flex !important;
+        }
+    }
+
+    #zen-workspaces-button {
+        flex-direction: row !important;
+        justify-content: center !important;
+        gap: 0 !important;
+        min-width: fit-content !important;
+        transition: min-width
+            var(--theme-sidebar_expand_on_hover-transition_speed) linear !important;
+
+        toolbarbutton {
+            margin: 0 !important;
+            flex-grow: 1 !important;
+            transition:
+                flex-grow var(--theme-sidebar_expand_on_hover-transition_speed)
+                    linear,
+                width var(--theme-sidebar_expand_on_hover-transition_speed)
+                    linear,
+                margin-inline
+                    var(--theme-sidebar_expand_on_hover-transition_speed) linear !important;
+            margin-inline: 2px !important;
+            overflow: hidden !important;
+        }
+    }
+
+    #tabbrowser-arrowscrollbox-periphery {
+        margin-inline: 0 !important;
+
+        /* Decrease the seperator line to the same length as before */
+        &::before {
+            margin-inline: var(--tab-block-margin);
         }
     }
 
@@ -772,38 +408,379 @@ Experimental Features
         :has(#TabsToolbar-customization-target > zen-workspace-creation),
         /* When a folder label is being edited */
         :has(.tab-label-container-editing),
-        /* to-do - When ANY panel element (like the folders tab group preview) is opened
-        this CSS is invalid beacuse :has cannot go outside of #navigator-toolbox
-        ; change "#navigator-toolbox" to "body" & adjust acoordingly later:
-        :has(html#main-window > body#mainPopupSet > panel[panel-open="true"])
-        */
         :has(#TabsToolbar[open="true"]) /* When edit theme picker is open */
     ) {
-        @media (-moz-bool-pref: "theme.sidebar_expand_on_hover.hide_workspace_indicator") {
-            .zen-current-workspace-indicator {
+        --zen-sidebar-width: var(
+            --theme-sidebar_expand_on_hover-expanded_width
+        ) !important;
+        &::before {
+            opacity: 1;
+            transition:
+                60ms opacity ease-in,
+                width ease-in-out
+                    var(--theme-sidebar_expand_on_hover-transition_speed);
+        }
+    }
+
+    /* Collapsed sidebar */
+    #navigator-toolbox:not(
+        [zen-has-hover],
+        [movingtab],
+        [flash-popup],
+        [has-popup-menu],
+        :has(.tabbrowser-tab:active),
+        :has(toolbarbutton[open="true"]:not(#zen-sidepanel-button), #urlbar[open]),
+        /* When creating a workspace */
+        :has(#TabsToolbar-customization-target > zen-workspace-creation),
+        /* When a folder label is being edited */
+        :has(.tab-label-container-editing),
+        :has(#TabsToolbar[open="true"]) /* When edit theme picker is open */
+    ) {
+        /* Show only active/first/no(todo) button*/
+        #zen-workspaces-button {
+            toolbarbutton:not([active="true"]) {
+                flex-grow: 0 !important;
+                width: 0 !important;
+                margin-inline: 0 !important;
+            }
+        }
+
+        #zen-essentials-container:has([selected])
+            > .tabbrowser-tab:not([selected]),
+        #zen-essentials-container:not(:has([selected]))
+            > .tabbrowser-tab:not(:first-child) {
+            flex-grow: 0 !important;
+            width: 0 !important;
+            min-width: 0 !important;
+            margin-inline: 0 !important;
+        }
+
+        toolbarspring {
+            flex-grow: 0 !important;
+            width: 0 !important;
+            min-width: 0 !important;
+            margin-inline: 0 !important;
+        }
+
+        /*to-do*/ /*Workaround for invisible top buttons seperator*/
+        #zen-sidebar-top-buttons-customization-target
+            > :not(:nth-child(1 of toolbarbutton, toolbaritem)) {
+            flex-grow: 0 !important;
+            width: 0 !important;
+            min-width: 0 !important;
+            margin-inline: 0 !important;
+        }
+
+        /* Support for tabs on the right */
+        #navigator-toolbox[zen-right-side="true"] {
+            direction: rtl !important;
+
+            #titlebar,
+            #zen-sidebar-top-buttons {
+                direction: ltr !important;
+            }
+
+            #titlebar {
+                padding-left: var(--zen-toolbox-padding) !important;
+                padding-right: 0 !important;
+            }
+
+            @media (-moz-bool-pref: "zen.view.use-single-toolbar") {
+                #nav-bar {
+                    direction: ltr !important;
+                }
+            }
+        }
+    }
+}
+
+/*
+=======================================
+
+Experimental Features
+^ The CSS below was apart of my userchrome.css.
+Still need to merge this...
+
+=======================================
+*/
+
+/* Collapsed sidebar */
+#navigator-toolbox:not(
+    [zen-has-hover],
+    [movingtab],
+    [flash-popup],
+    [has-popup-menu],
+    :has(.tabbrowser-tab:active),
+    :has(toolbarbutton[open="true"]:not(#zen-sidepanel-button), #urlbar[open]),
+    /* When creating a workspace */
+    :has(#TabsToolbar-customization-target > zen-workspace-creation),
+    /* When a folder label is being edited */
+    :has(.tab-label-container-editing),
+    :has(#TabsToolbar[open="true"]) /* When edit theme picker is open */
+) {
+    /* Align sidebar foot buttons vertically in columns when pref is set*/
+    @media (-moz-bool-pref: "theme.sidebar_expand_on_hover.align_buttons") {
+        #zen-sidebar-foot-buttons {
+            flex-direction: column-reverse !important;
+            justify-content: center !important;
+
+            > #zen-create-new-button {
                 display: none !important;
             }
+
+            @media not (-moz-bool-pref: "theme.sidebar_expand_on_hover.hide_workspace_indicator") {
+                > #zen-workspaces-button {
+                    display: none !important;
+                }
+            }
         }
+    }
 
-        #zen-sidebar-foot-buttons {
-            /* revert flex direction to row */
-            flex-direction: row !important;
+    .zen-current-workspace-indicator {
+        display: flex !important;
+        justify-content: flex-start !important;
+        margin-left: 2px !important;
+        min-width: 100% !important; /* Make workspace icon display at full size */
 
-            /* Align expanded foot buttons to match the same position as collapsed foot buttons */
-            @media (-moz-bool-pref: "theme.sidebar_expand_on_hover.align_buttons") {
-                padding-left: 6px !important; /* to-do: change from fixed value? */
-                padding-right: 6px !important; /* to-do: change from fixed value? */
-                /*padding-bottom: 1px !important;*/
+        /* Hide every element inside by default */
+        > * {
+            display: none !important;
+        }
+        /* When there is a workspace icon, display the icon */
+        > .zen-current-workspace-indicator-icon:not([no-icon]) {
+            display: block !important;
+        }
+        /* When there is NO workspace icons, display the name */
+        > .zen-current-workspace-indicator-icon:is([no-icon])
+            ~ .zen-current-workspace-indicator-name {
+            display: block !important;
+        }
+    }
+
+    /* Override and hide workspace indicator when pref is set */
+    @media (-moz-bool-pref: "theme.sidebar_expand_on_hover.hide_workspace_indicator") {
+        .zen-current-workspace-indicator {
+            display: none !important;
+        }
+    }
+
+    zen-folder {
+        @media (-moz-pref("theme.sidebar_expand_on_hover.collapsed_folder_style", "side_border")) {
+            /* For Sine Mod */
+            background: linear-gradient(
+                to right,
+                #ffffff60 10%,
+                transparent 10%
+            ) !important;
+            background-position: left;
+        }
+        @media (-moz-pref: "theme.sidebar_expand_on_hover.collapsed_folder_style", "side_border") {
+            /* For Zen Mod */
+            background: linear-gradient(
+                to right,
+                #ffffff50 10%,
+                transparent 10%
+            ) !important;
+            background-position: left;
+        }
+    }
+
+    .tab-group-container > zen-folder:nth-of-type(1n) {
+        /*all nested folders*/
+        margin-left: 8px !important; /*limit margin*/
+        @media (-moz-pref("theme.sidebar_expand_on_hover.collapsed_folder_style", "side_border")) {
+            /* For Sine Mod */
+            background: linear-gradient(
+                to right,
+                #ffffff60 10%,
+                transparent 10%
+            ) !important;
+            background-position: left;
+        }
+        @media (-moz-pref: "theme.sidebar_expand_on_hover.collapsed_folder_style", "side_border") {
+            /* For Zen Mod */
+            background: linear-gradient(
+                to right,
+                #ffffff60 10%,
+                transparent 10%
+            ) !important;
+            background-position: left;
+        }
+    }
+
+    .tab-group-container {
+        margin-left: -8px !important; /* limit margin*/ /* is negative of the other value */
+    }
+
+    /*MEDIA CONTROLS - optional*/
+
+    #zen-media-controls-hbox > #zen-media-focus-button {
+        display: block !important; /* Display the active playing tab's icon */
+        /*background-image: url('chrome://browser/skin/zen-icons/selectable/star-1.svg') !important;*/
+    }
+
+    --zen-toolbox-padding: calc(
+        var(--zen-element-separation) / 2 + 1px
+    ) !important;
+
+    /* Hide Ancestor Elements (on collapsed sidebar) */
+    /* - On collapsed sidebar checker */
+    --theme-sidebar_expand_on_hover-if_collapsed_display_none: none;
+}
+
+/* Zen Essentials (On Collapsed Bar)*/
+#navigator-toolbox:not(
+    [zen-has-hover],
+    [movingtab],
+    [flash-popup],
+    [has-popup-menu],
+    :has(.tabbrowser-tab:active),
+    :has(toolbarbutton[open="true"]:not(#zen-sidepanel-button), #urlbar[open]),
+    /* When creating a workspace */
+    :has(#TabsToolbar-customization-target > zen-workspace-creation),
+    /* When a folder label is being edited */
+    :has(.tab-label-container-editing),
+    :has(#TabsToolbar[open="true"]) /* When edit theme picker is open */
+) {
+    /*
+    * Determine Essentials Container Height
+    *
+    * This solution uses the :has() and :not(:has()) selectors to detect
+    * the number of children (.tabbrowser-tab) inside the .zen-essentials-container
+    * and sets the --theme-sidebar_expand_on_hover-essentials_collapsed_tab_height variable accordingly.
+    */
+    /* --- 0 children (Does not have a 1st child) --- */
+    &:not(:has(.zen-essentials-container > .tabbrowser-tab:first-child)) {
+        --theme-sidebar_expand_on_hover-essentials_collapsed_tab_height: 0px; /*Each row of essentials is +50px tall*/
+    }
+
+    /* --- RANGE 1: 1 to 4 children (Does not have a 5th child) --- */
+    &:has(.zen-essentials-container > .tabbrowser-tab:nth-child(1)):not(
+            :has(.zen-essentials-container > .tabbrowser-tab:nth-child(5))
+        ) {
+        --theme-sidebar_expand_on_hover-essentials_collapsed_tab_height: 50px; /*Each row of essentials is +50px tall*/
+    }
+
+    /* --- RANGE 2: 5 to 8 children (Has a 5th child AND does not have a 9th child) --- */
+    &:has(.zen-essentials-container > .tabbrowser-tab:nth-child(5)):not(
+            :has(.zen-essentials-container > .tabbrowser-tab:nth-child(9))
+        ) {
+        --theme-sidebar_expand_on_hover-essentials_collapsed_tab_height: 100px;
+    }
+
+    /* --- RANGE 3: 9 to 12 children (Has a 9th child AND does not have a 13th child) --- */
+    &:has(.zen-essentials-container > .tabbrowser-tab:nth-child(9)):not(
+            :has(.zen-essentials-container > .tabbrowser-tab:nth-child(13))
+        ) {
+        --theme-sidebar_expand_on_hover-essentials_collapsed_tab_height: 150px;
+    }
+
+    .zen-essentials-container {
+        /* Center collapsed essentials container */
+        left: 0 !important;
+        /* Same thing
+        margin-left: var(--zen-toolbox-padding) !important;*/
+
+        transition:
+            transform var(--theme-sidebar_expand_on_hover-transition_speed)
+                ease-out,
+            display 0s linear 0.3s !important;
+        width: var(
+            --theme-sidebar_expand_on_hover-essentials_collapsed_width
+        ) !important; /* adjustable - horizontal spacing*/
+
+        transform: scaleX(
+            0.25
+        ) !important; /* Squish Essentials to fit into collapsed sidebar */
+        transform-origin: top left !important;
+        height: var(
+            --theme-sidebar_expand_on_hover-essentials_collapsed_tab_height
+        ) !important;
+
+        > .tabbrowser-tab {
+            justify-content: center !important;
+            margin: var(
+                --theme-sidebar_expand_on_hover-essentials_collapsed_tab_margin
+            ) !important; /* adjustable - tab horizontal spacing*/
+            /*--tab-min-height: 46px; /*14px*/
+            /*--tab-min-width: 50px;*/
+            left: 10px !important;
+
+            transform: scaleX(
+                4
+            ) !important; /* Undo Essentials Tab **Icon** Squishing */
+
+            .tab-background {
+                width: 20px !important;
+                min-height: 10px !important;
+                height: 30px !important;
+                transform: translate(24px, 12px) !important;
             }
         }
 
-        .zen-essentials-container {
-            will-change: transform;
-            /*transition: clamp(80ms, calc(var(--theme-sidebar_expand_on_hover-transition_speed) - 60ms)) linear !important;*/
-        }
-
-        /*to-do --zen-toolbox-padding: calc(0px) !important;*/
+        /*
+            > .tabbrowser-tab {
+                justify-content: center !important;
+                margin: 0px !important;
+                --tab-min-height: 14px;
+                --tab-min-width: 0px;
+                height: 20px !important;
+                width: 16px !important;
+            }
+        */
     }
+
+    .zen-essentials-container > .tabbrowser-tab,
+    #zen-welcome-initial-essentials-browser-sidebar-essentials .tabbrowser-tab {
+        &:not([visuallyselected], [multiselected="true"]) .tab-background {
+            background: none !important;
+        }
+    }
+}
+
+/* Expanded sidebar */
+#navigator-toolbox:is(
+    [zen-has-hover],
+    [movingtab],
+    [flash-popup],
+    [has-popup-menu],
+    :has(.tabbrowser-tab:active),
+    :has(toolbarbutton[open="true"]:not(#zen-sidepanel-button), #urlbar[open]),
+    /* When creating a workspace */
+    :has(#TabsToolbar-customization-target > zen-workspace-creation),
+    /* When a folder label is being edited */
+    :has(.tab-label-container-editing),
+    /* to-do - When ANY panel element (like the folders tab group preview) is opened
+    this CSS is invalid beacuse :has cannot go outside of #navigator-toolbox
+    ; change "#navigator-toolbox" to "body" & adjust acoordingly later:
+    :has(html#main-window > body#mainPopupSet > panel[panel-open="true"])
+    */
+    :has(#TabsToolbar[open="true"]) /* When edit theme picker is open */
+) {
+    @media (-moz-bool-pref: "theme.sidebar_expand_on_hover.hide_workspace_indicator") {
+        .zen-current-workspace-indicator {
+            display: none !important;
+        }
+    }
+
+    #zen-sidebar-foot-buttons {
+        /* revert flex direction to row */
+        flex-direction: row !important;
+
+        /* Align expanded foot buttons to match the same position as collapsed foot buttons */
+        @media (-moz-bool-pref: "theme.sidebar_expand_on_hover.align_buttons") {
+            padding-left: 6px !important; /* to-do: change from fixed value? */
+            padding-right: 6px !important; /* to-do: change from fixed value? */
+            /*padding-bottom: 1px !important;*/
+        }
+    }
+
+    .zen-essentials-container {
+        will-change: transform;
+        /*transition: clamp(80ms, calc(var(--theme-sidebar_expand_on_hover-transition_speed) - 60ms)) linear !important;*/
+    }
+
+    /*to-do --zen-toolbox-padding: calc(0px) !important;*/
 }
 
 /* Hide Ancestor Elements (on collapsed sidebar)
