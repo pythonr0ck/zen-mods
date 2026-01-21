@@ -1,7 +1,7 @@
 # Sidebar Expand on Hover
 > Download with Sine Mod Manager [here](#download-with-sine-mod-manager-recommended)
 
-My personally (and actively!) maintained version of Sidebar Expand on Hover.
+My personally (and badly coded) maintained version of Sidebar Expand on Hover.
 
 This fork fixes compatibility with newer Zen versions + a few of my own features added in.
 
@@ -31,7 +31,7 @@ I don't necessarily plan to bring any more features or any old ones not included
 ## To do
 > ```*``` = priority  |  ```[strikethrough]``` = not planned
 
-- [ ] Add configurable/revertable options*
+- [ ] Add configurable/revertable options\*
     - [x] Configurable Collapsed Essentials Styles
     - [x] Folder Decorations
     - [x] Center top/bottom sidebar buttons
@@ -40,6 +40,7 @@ I don't necessarily plan to bring any more features or any old ones not included
   - For now you can disable the preference: align sidebar foot buttons vertically, so that they don't take up space
 - [ ] Improve Animations (Essentials Animation between expanded/collapsed state)
 - [ ] Add [Big Essentials Mod](https://zen-browser.app/mods/9bbaab67-a2c8-4d79-837f-90cd72a8932a/) support
+- [ ] Rework Collapsed Essentials\*
   ### Fixes
 - [x] Fix abrupt truncation on current tab indicator: [Uiniel#76](https://github.com/Uiniel/zen-mods/issues/76#issuecomment-2884305863)
 - [x] Hide scrollbar on collapsed sidebar: [Uiniel#76](https://github.com/Uiniel/zen-mods/issues/76#issuecomment-2852383433)
@@ -50,9 +51,7 @@ I don't necessarily plan to bring any more features or any old ones not included
 - [x] Fix accidental sidebar expand on empty top buttons (sidebar toolbar) hover
 - [x] Fix having no Essentials causes empty padding
 - [x] Fix radial gradient support for Zen 1.17.13b
-- [ ] Fix Collapsed Essentials to be compatible with varying expanded sidebar width values*
 - [ ] Fix macOS support: toolbar and window controls
-- [ ] Delay Expand on Hover: [Uiniel#44](https://github.com/Uiniel/zen-mods/issues/44) 
 
 ## How to Download
 > **Important:** set the browser layout to Single Toolbar or Multiple Toolbar depending on how the expanded sidebar should look like after you install this mod.

@@ -267,7 +267,7 @@ background-image: var(--theme-sidebar_expand_on_hover-if_background_gradient, li
         > #titlebar,
         > #zen-sidebar-top-buttons {
             overflow: hidden !important;
-            /*Causes layout jank during transition when combined with the essentials tab transformation workaround in userChrome.
+            /*Causes layout jank during transition when combined with the essentials tab transformation workaround in Experimental Features. (You can see it if you have a low performance device)
             transition: width ease-in-out var(--theme-sidebar_expand_on_hover-transition_speed), max-width ease-in-out var(--theme-sidebar_expand_on_hover-transition_speed);*/
         }
 
@@ -510,8 +510,6 @@ background-image: var(--theme-sidebar_expand_on_hover-if_background_gradient, li
 =======================================
 
 Experimental Features
-^ The CSS below was apart of my userchrome.css.
-Still need to merge this...
 
 =======================================
 */
@@ -634,11 +632,10 @@ Still need to merge this...
         }
     }
 
-    /*MEDIA CONTROLS - optional*/
+    /* MEDIA CONTROLS */
 
     #zen-media-controls-hbox > #zen-media-focus-button {
         display: block !important; /* Display the active playing tab's icon */
-        /*background-image: url('chrome://browser/skin/zen-icons/selectable/star-1.svg') !important;*/
     }
 
     --zen-toolbox-padding: calc(
@@ -649,6 +646,9 @@ Still need to merge this...
     /* - On collapsed sidebar checker */
     --theme-sidebar_expand_on_hover-if_collapsed_display_none: none;
 }
+
+/*to-do: Rework Collapsed Essentials -
+* remove use of transformations (was done originally for testing other layouts)*/
 
 /* Zen Essentials (On Collapsed Bar)*/
 #navigator-toolbox:not(
@@ -667,8 +667,10 @@ Still need to merge this...
     /*
     * Determine Essentials Container Height
     *
-    * This solution uses the :has() and :not(:has()) selectors to detect
-    * the number of children (.tabbrowser-tab) inside the .zen-essentials-container
+    * (Since JS is obviously not available to get the actual height of the expanded container directly,
+    * we use a workaround...)
+    * This solution determines the current height of the expanded essentials tab container
+    * based on the number of children (.tabbrowser-tab)
     * and sets the --theme-sidebar_expand_on_hover-essentials_collapsed_tab_height variable accordingly.
     */
     /* --- 0 children (Does not have a 1st child) --- */
@@ -676,21 +678,21 @@ Still need to merge this...
         --theme-sidebar_expand_on_hover-essentials_collapsed_tab_height: 0px; /*Each row of essentials is +50px tall*/
     }
 
-    /* --- RANGE 1: 1 to 4 children (Does not have a 5th child) --- */
+    /* --- ROW 1: 1 to 4 children (Does not have a 5th child) --- */
     &:has(.zen-essentials-container > .tabbrowser-tab:nth-child(1)):not(
             :has(.zen-essentials-container > .tabbrowser-tab:nth-child(5))
         ) {
         --theme-sidebar_expand_on_hover-essentials_collapsed_tab_height: 50px; /*Each row of essentials is +50px tall*/
     }
 
-    /* --- RANGE 2: 5 to 8 children (Has a 5th child AND does not have a 9th child) --- */
+    /* --- ROW 2: 5 to 8 children (Has a 5th child AND does not have a 9th child) --- */
     &:has(.zen-essentials-container > .tabbrowser-tab:nth-child(5)):not(
             :has(.zen-essentials-container > .tabbrowser-tab:nth-child(9))
         ) {
         --theme-sidebar_expand_on_hover-essentials_collapsed_tab_height: 100px;
     }
 
-    /* --- RANGE 3: 9 to 12 children (Has a 9th child AND does not have a 13th child) --- */
+    /* --- ROW 3: 9 to 12 children (Has a 9th child AND does not have a 13th child) --- */
     &:has(.zen-essentials-container > .tabbrowser-tab:nth-child(9)):not(
             :has(.zen-essentials-container > .tabbrowser-tab:nth-child(13))
         ) {
