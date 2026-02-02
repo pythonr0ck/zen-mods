@@ -1,7 +1,7 @@
 # Sidebar Expand on Hover
 > Download with Sine Mod Manager [here](#download-with-sine-mod-manager-recommended)
 
-My personally (and badly coded) maintained version of Sidebar Expand on Hover.
+My personally (and actively!) maintained version of Sidebar Expand on Hover.
 
 This fork fixes compatibility with newer Zen versions + a few of my own features added in.
 
