@@ -1,6 +1,8 @@
 # Sidebar Expand on Hover
 > Download with Sine Mod Manager [here](#download-with-sine-mod-manager-recommended)
 
+**This branch is *out of date.* Don't use it.**
+
 My personally (and actively!) maintained version of Sidebar Expand on Hover.
 
 This fork fixes compatibility with newer Zen versions + a few of my own features added in.
@@ -29,7 +31,7 @@ I don't necessarily plan to bring any more features or any old ones not included
 </table>
 
 ## To do
-> ```*``` = priority  |  ```[strikethrough]``` = not planned
+> ```*``` = priority  |  ``` ̶s̶t̶r̶i̶k̶e̶t̶h̶r̶o̶u̶g̶h̶``` = not planned
 
 - [ ] Add configurable/revertable options*
     - [x] Configurable Collapsed Essentials Styles
@@ -89,6 +91,7 @@ With this mod the sidebar expands when you hover it. It only works when the brow
 Addionally this mod collapses the buttons below the tabs to provide a smoother experience. Per default your active workspace is shown while the sidebar is collapsed (only works when the workspace switcher is placed there).
 
 ## Preferences
+- **Force Left Window Controls**: fixes the position of the window controls when the sidebar is tabs-on-right mode or on macOS (by ensuring that the window controls become apart of the navbar rather than the sidebar). *(default: off)*
 - **Collapsed Essentials Style**: Choose between the Condensed Style or the more minimalistic Spaced-Out Style (transitions between expanded/collapsed sidebar states better visually) *(default: condensed)*
 - **Hide top workspace indicator**: since the active workspace is already shown below, this theme hides the workspace indicator at the top (Uncheck to swap positions). *(default: off)*
 - **Align the sidebar foot buttons vertically**: If you don't wish for your buttons to be aligned vertically when collapsed: deactivate this setting and it aligns the buttons horizontally (like the OG mod) instead when collapsed *(default: on)*
