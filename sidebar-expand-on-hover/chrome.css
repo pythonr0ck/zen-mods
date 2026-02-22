@@ -56,7 +56,12 @@
 }
 
 /* Expanded Sidebar BG -
-The --theme-sidebar_expand_on_hover-if_background_gradient variable is going to be used to set up an if()-like statement below. (The checking happens here (instead of where it is used later on) because CSS doesnt allow for checking elements outside of parent.) */
+The --theme-sidebar_expand_on_hover-if_background_gradient variable
+is going to be used to set up an if()-like statement below.
+(
+    The checking happens here (instead of where it is used later on)
+    because CSS doesnt allow for checking elements outside of parent.
+) */
 #main-window[style*="--zen-main-browser-background: linear-gradient"], /* Support Zen versions below 1.17.13b */
 #main-window[style*="--zen-main-browser-background: radial-gradient"] /* Support Zen versions above 1.17.13b */ {
     /*if the browser background is a gradient...*/
@@ -166,7 +171,8 @@ background-image: var(--theme-sidebar_expand_on_hover-if_background_gradient, li
 
                 /*
                 Used to affect window buttons>[what I presume is always the close button?]: #zen-appcontent-navbar-container:has(#nav-bar>.titlebar-buttonbox-container:last-child)
-                ^ I don't see how the window buttons relate to the padding--this might be some accidental selection the original developer made??
+                ^ I don't see how the window buttons relate to the padding
+                    --to-do: this might be some accidental (or now irrelevent) selection the original developer made??
                 ^ Removing this pseudo prevent this issue from happening:
                 Quote: (#80) - https://github.com/Uiniel/zen-mods/issues/80:
                 i click on a extension and it opens a popup, the navigation buttons, url bar and extension buttons move to the right side a little bit and in result the right side extension buttons go under the window controls.
@@ -200,9 +206,24 @@ background-image: var(--theme-sidebar_expand_on_hover-if_background_gradient, li
         min-width: var(--zen-toolbox-max-width) !important;
         position: relative !important;
 
-        /* I have no idea how to replicate the browser background, I don't know where the colors come from, the computed values in the inspector don't match anything on screen.
-            This is as close as I was able to get so far.
-            */
+        /*
+        *   ~~I have no idea how to replicate the browser background, I don't know where the colors come from,
+        *   the computed values in the inspector don't match anything on screen.
+        *   This is as close as I was able to get so far.~~
+        *
+        *   Once Zen implements accurate colors for Compact mode,
+        *   the sidebar will be able to grab the exact colors needed from there.
+        *
+        *   See [#9773 on Zen's GitHub](https://github.com/zen-browser/desktop/issues/9773#issuecomment-3914104319).
+        *
+        *   For now, colors just wont be accurate.
+        *
+        *   For the future, some notes (as of 1.18.10b):
+        *   Check "zen-compact-mode.css" code for the class ".zen-toolbar-background".
+        *   By default, "var(--zen-main-browser-background)" (isnt in the CSS itself)
+        *   is used as the background (seen when all code in class ".zen-toolbar-background" is commented out).
+        *   The code in .zen-toolbar-background seems to layer on effects to create the final background
+        */
         &::before {
             position: absolute;
             content: "";
@@ -561,7 +582,7 @@ Experimental Features
             display: none !important;
         }
 
-        /* 2. Hide indicators that have the [no-icon] attribute */
+        /* 2. Hide indicators that have no workspace icon set */
         > [no-icon="true"] {
             display: none !important;
         }
@@ -832,7 +853,7 @@ Experimental Features
 *  so it relies on a seperate variable to check if the sidebar is collapsed
 *  instead of using #navigator-toolbox:is([zen-has-hover],...) directly
 */
-/* Hide (update) notifications on collapsed sidebar */
+/* Hide (update) notification content on collapsed sidebar (so: content is hidden, titlebar is not) */
 .zen-sidebar-notification-body {
     display: var(
         --theme-sidebar_expand_on_hover-if_collapsed_display_none
@@ -841,6 +862,13 @@ Experimental Features
 
 /* Hide scrollbar on collapsed sidebar */
 scrollbox:nth-child(5) {
+    /* Scrollboxes are actually outside of the collapsed sidebar (#navigator-toolbox),
+    *   so the relational pseudo selectors inside it
+    *   that determines if the sidebar is **collapsed** can not apply..
+    *   Since CSS doesnt allow for selecting elements (the scrollbox) outside of parent,
+    *   we use a variable inside the collapsed sidebar (variables are universal)
+    *   to check if the sidebar is collapsed, and use it as necessary.
+    */
     scrollbar-width: var(
         --theme-sidebar_expand_on_hover-if_collapsed_display_none
     ) !important;

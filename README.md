@@ -1,14 +1,16 @@
 # Sidebar Expand on Hover
 > Download with Sine Mod Manager [here](#download-with-sine-mod-manager-recommended)
 
-My personally (and actively!) maintained version of Sidebar Expand on Hover.
+**NOTICE: My Sine install broke on Zen recently. Development is stopped since I've moved onto another browser (vivaldi!)** Maybe when Zen and Sine reach stable releases, development will resume. Check out [this sidebar expand on hover mod](https://github.com/StormAnon/zen-sidebar-expand-on-hover) instead. Its so much better.
+
+My personally (~~and actively!~~) maintained version of Sidebar Expand on Hover.
 
 This fork fixes compatibility with newer Zen versions + a few of my own features added in.
 
 I don't necessarily plan to bring any more features or any old ones not included in the to-do list, but feel free to open a PR if you want to add something. Or an issue if you find any bugs.
 
 ### Highlights
-- Fixed compatibility for Zen v1.17.11b-1.18t! 
+- Fixed compatibility for Zen v1.17.11b-1.18.10b!
 - Added: Collapsed Essentials, Collapsed Folders, etc.
 
 <table>
